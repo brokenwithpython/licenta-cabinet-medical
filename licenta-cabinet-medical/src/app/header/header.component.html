@@ -1,0 +1,41 @@
+<html>
+  <head>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js"></script>
+    <script src="./script.js"></script>
+  </head>
+  <body>
+    <header>
+      <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+      <div class="menu-toggle" id="hamburger">
+        <i class="fas fa-bars"></i>
+      </div>
+      <div class="overlay" id="overlayID"></div>
+      <div class="toggleBrand" id="toggleBrandID" routerLinkActive="active">
+        <a routerLink="/home">
+          <img src="https://storage.needpix.com/rsynced_images/stethoscope-icon-2316460_1280.png" height="80px">
+          <!-- <span class="text-uppercase font-weight-bold">First Aid Medical Services</span> -->
+        </a>
+      </div>
+      <div class="container">
+        <nav id="navID">
+          <div class="brand" id="brandUL"routerLinkActive="active">
+            <a routerLink="/home">
+              <img src="https://storage.needpix.com/rsynced_images/stethoscope-icon-2316460_1280.png" height="120px">
+              <!-- <h1>cabinet</h1> -->
+            </a>
+          </div>
+          <ul id="ulID">
+            <!-- <li ><a routerLink="/home">Appointments</a></li> -->
+            <!-- <li ><a routerLink="/my-profile" >My Profile</a></li> -->
+            <!-- <li ><a routerLink="/about">About</a></li> -->
+            <!-- <li ><a routerLink="/contact">Contact</a></li> -->
+            <li ><a routerLink="/contact">Contact</a></li>
+            <li ><a routerLink="/auth/sign-up">Sign-Up</a></li>
+            <li ><a routerLink="/auth/login">Login</a></li>
+            <li ><a routerLink="/" (click)="onLogout()">Logout</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+  </body>
+</html>

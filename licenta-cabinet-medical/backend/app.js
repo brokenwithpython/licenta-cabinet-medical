@@ -9,11 +9,12 @@ const app = express();
 mongoose.set('useNewUrlParser', true);
 mongoose.set('useUnifiedTopology', true);
 
-mongoose.connect("mongodb+srv://manuel:" + process.env.MONGO_ATLAS_PW +"@medical-cabinet.k9x3i.mongodb.net/medical-cabinet?retryWrites=true&w=majority")
+
+mongoose.connect("mongodb+srv://manuel:" + process.env.MONGO_ATLAS_PW +"@medical-cabinet.k9x3i.mongodb.net/medical-cabinet")
   .then(() => {
     console.log('Connected to DataBase!');
-  }).catch(() => {
-    console.log('Connection failed!')
+  }).catch(err => {
+    console.log(err);
   });
 
 app.use(express.json());

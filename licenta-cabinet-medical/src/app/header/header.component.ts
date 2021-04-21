@@ -61,10 +61,11 @@ export class HeaderComponent implements OnInit{
 
     });
 
-    // this.comandaSub = this.comandaService.comanda.subscribe(comanda => {
-    //   this.comandaCompleta = !!comanda;
-    // });
+  }
 
+  scrollToElement($element): void {
+    console.log($element);
+    $element.scrollIntoView({behavior: "smooth", block: "start", inline: "nearest"});
   }
 
   // ngOnDestroy() {

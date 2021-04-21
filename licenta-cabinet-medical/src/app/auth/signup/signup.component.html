@@ -1,36 +1,116 @@
-<p>Sign-Up</p>
-<mat-card>
-  <!-- <mat-spinner ></mat-spinner> -->
-  <form (submit)="onSignup(signupForm)" #signupForm="ngForm" >
-    <mat-form-field>
-      <input
-        matInput
-        name="email"
-        ngModel
-        type="email"
-        placeholder="E-mail"
-        #emailInput="ngModel"
-        required
-        email>
-        <mat-error *ngIf="emailInput.invalid">Please enter a valid E-mail.</mat-error>
-    </mat-form-field>
-    <mat-form-field>
-      <input
-      matInput
-      name="password"
-      ngModel
-      type="password"
-      placeholder="Password"
-      #passwordInput="ngModel"
-      required>
-      <mat-error *ngIf="passwordInput.invalid">Please enter a valid password.</mat-error>
-    </mat-form-field>
-    <div class="center">
-      <button
-        mat-raised-button
-        color="accent"
-        type="submit">Login
-      </button>
+<!-- <p>Sign-Up</p> -->
+<form [formGroup]="form" (submit)="onSignup()" #signupForm="ngForm">
+    <mat-progress-bar mode="determinate" value="50" color="warn" *ngIf="!this.continuePressed"></mat-progress-bar>
+    <mat-progress-bar mode="determinate" value="100" color="warn" *ngIf="this.continuePressed"></mat-progress-bar>
+    <mat-card >
+      <mat-card-title class="center">Creaza-ti cont in reteaua FamilyLife</mat-card-title>
+      <mat-card-subtitle class="center">Ai acces la cei mai buni medici de familie din Romania, te programezi online, ai acces la dosarul tau medical oriunde, oricand!</mat-card-subtitle>
+      <!-- <mat-spinner ></mat-spinner> -->
+      <div *ngIf="!this.continuePressed">
+        <mat-form-field appearance="outline">
+          <mat-label>Email</mat-label>
+          <input
+            matInput
+            type="email"
+            name="email"
+            [formControlName] = "'email'"
+            placeholder="Email">
+          <mat-error *ngIf="form.get('email').invalid">Introduceti un email corect.</mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Numar de telefon</mat-label>
+          <input
+            autocomplete="username"
+            matInput
+            type="text"
+            name="phoneNumber"
+            [formControlName] = "'phoneNumber'"
+            placeholder="Numar de telefon">
+          <mat-error *ngIf="form.get('phoneNumber').invalid">Introduceti un numar de telefon corect.</mat-error>
+        </mat-form-field>
+      <form formGroupName="passwords">
+        <mat-form-field appearance="outline">
+          <mat-label>Parola</mat-label>
+          <input
+            autocomplete="new-password"
+            matInput
+            type="password"
+            name="password"
+            [formControlName] = "'password'"
+            placeholder="Parola">
+          <mat-error *ngIf="form.get('passwords.password').invalid">Introduceti o parola corecta.</mat-error>
+          <!-- <mat-error *ngIf="passwordsForm.get('password').invalid">Introduceti o parola corecta.</mat-error> -->
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Confirmare parola</mat-label>
+          <input
+            autocomplete="new-password"
+            matInput
+            type="password"
+            name="confirmPassword"
+            [errorStateMatcher]="matcher"
+            [formControlName] = "'confirmPassword'"
+            placeholder="Confirmare parola">
+            <!-- <mat-error *ngIf="form.get('confirmPassword').invalid">Cele doua parole nu corespund</mat-error> -->
+            <mat-error *ngIf="form.get('passwords').hasError('notSame')">Cele doua parole nu corespund</mat-error>
+        </mat-form-field>
+      </form>
+        <div class="center">
+          <button
+            mat-raised-button
+            color="accent"
+            (click)="this.continueButtonPressed()">Continuare
+          </button>
+        </div>
+      </div>
+      <div *ngIf="this.continuePressed">
+        <mat-form-field appearance="outline">
+          <mat-label>Nume de familie</mat-label>
+          <input
+            matInput
+            type="text"
+            name="lastName"
+            [formControlName] = "'lastName'"
+            placeholder="Nume de familie">
+          <mat-error *ngIf="form.get('lastName').invalid">Introduceti un nume valid.</mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Prenume</mat-label>
+          <input
+            matInput
+            type="text"
+            name="firstName"
+            [formControlName] = "'firstName'"
+            placeholder="Prenume">
+          <mat-error *ngIf="form.get('firstName').invalid">Introduceti un prenume valid.</mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>CNP</mat-label>
+          <input
+            matInput
+            type="text"
+            name="cnp"
+            [formControlName] = "'cnp'"
+            placeholder="CNP">
+          <mat-error *ngIf="form.get('cnp').invalid">Introduceti un CNP valid.</mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Adresa de domiciliu</mat-label>
+          <input
+            matInput
+            type="text"
+            name="address"
+            [formControlName] = "'address'"
+            placeholder="Adresa de domiciliu">
+          <mat-error *ngIf="form.get('address').invalid">Introduceti o adresa valida.</mat-error>
+        </mat-form-field>
+        <div class="center">
+          <button
+            mat-raised-button
+            color="accent"
+            type="submit">Creeaza cont
+          </button>
+      </div>
     </div>
-  </form>
-</mat-card>
+  </mat-card>
+</form>

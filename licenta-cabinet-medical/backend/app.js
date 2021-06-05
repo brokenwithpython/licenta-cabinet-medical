@@ -1,8 +1,12 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const path = require('path');
+const bodyParser = require('body-parser');
+
 
 const userRoutes = require('./routes/user');
+const medicRoutes = require('./routes/medic');
+const scheduleRoutes = require('./routes/schedule');
 
 const app = express();
 
@@ -28,7 +32,7 @@ app.use((req, res, next) => {
      "*");
   res.setHeader(
     "Access-Control-Allow-Headers",
-    "Origin, X-Requested-With, Content-Type, Accept, Authorization ");
+    "Origin, X-Requested-With, Content-Type, Accept, Authorization");
   res.setHeader(
     "Access-Control-Allow-Methods",
     "GET, POST, PUT, PATCH, DELETE, OPTIONS");
@@ -36,5 +40,7 @@ app.use((req, res, next) => {
 });
 
 app.use("/api/user", userRoutes);
+app.use("/api/medic", medicRoutes);
+app.use("/api/schedule", scheduleRoutes);
 
 module.exports = app;

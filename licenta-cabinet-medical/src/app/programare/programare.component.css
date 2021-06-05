@@ -1,4 +1,10 @@
 
+mat-card {
+  background-color: #f8f8f8;
+  margin: 30px auto;
+  width: 100%;
+}
+
 mat-form-field,
 textarea {
   width: 100%;
@@ -7,11 +13,56 @@ textarea {
 
 
 
+mat-form-field {
+  margin: 0 10px 0;
+}
+
+.form {
+  display: flex;
+}
+
+
 mat-spinner {
   margin: auto
 }
 
-input[type="file"] {
-  visibility: hidden;
+.center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+h4 {
+  font-weight: 450;
+  /* margin: 10px 10px 10px; */
+}
+
+h5 {
+  font-weight: 400;
+}
+.example-section {
+  display: flex;
+  align-content: center;
+  align-items: center;
+
+}
+
+.onlineCheck {
+  padding-right: 15px;
+  margin: 0 10px 10px;
+}
+
+.mat-button{
+  background-color: #0190B0;
+  color: #ffff;
+}
+
+@media screen and (max-width: 800px){
+
+  .form {
+    display: block;
+    padding-right: 15px;
+  }
+
 }
 

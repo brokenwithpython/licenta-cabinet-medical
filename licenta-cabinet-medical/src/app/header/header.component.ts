@@ -1,5 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import * as $ from 'jquery';
+import { Subscription } from 'rxjs';
 import { AuthService } from '../auth/auth.service';
 
 
@@ -8,11 +9,14 @@ import { AuthService } from '../auth/auth.service';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css']
 })
-export class HeaderComponent implements OnInit{
+export class HeaderComponent implements OnInit, OnDestroy{
 
   // comandaCompleta = false;
   // private comandaSub: Subscription;
   constructor(private authService: AuthService) { }
+
+  private authListnerSubs: Subscription;
+  userIsAuthenticated = false;
 
   onLogout() {
     this.authService.logout();
@@ -26,6 +30,12 @@ export class HeaderComponent implements OnInit{
     const overlay = document.querySelector('.overlay');
     const icon = document.querySelector('.menu-toggle i');
     const toggleBrand = document.getElementById('toggleBrandID');
+
+    this.userIsAuthenticated = this.authService.getIsAuth();
+    this.authListnerSubs = this.authService.getAuthStatusListner().subscribe(isAuthenticated => {
+      this.userIsAuthenticated = isAuthenticated;
+    });
+
 
     ulID.addEventListener('click', () => {
       open.click();
@@ -67,8 +77,7 @@ export class HeaderComponent implements OnInit{
     console.log($element);
     $element.scrollIntoView({behavior: "smooth", block: "start", inline: "nearest"});
   }
-
-  // ngOnDestroy() {
-  //   this.comandaSub.unsubscribe();
-  // }
+  ngOnDestroy() {
+    this.authListnerSubs.unsubscribe();
+  }
 }

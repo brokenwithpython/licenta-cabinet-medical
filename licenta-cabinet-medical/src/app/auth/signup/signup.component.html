@@ -1,11 +1,13 @@
 <!-- <p>Sign-Up</p> -->
-<form [formGroup]="form" (submit)="onSignup()" #signupForm="ngForm">
+<mat-spinner *ngIf="isLoading"></mat-spinner>
+<form [formGroup]="form" (submit)="onSignup(signupForm)" #signupForm="ngForm" *ngIf="!isLoading">
     <mat-progress-bar mode="determinate" value="50" color="warn" *ngIf="!this.continuePressed"></mat-progress-bar>
     <mat-progress-bar mode="determinate" value="100" color="warn" *ngIf="this.continuePressed"></mat-progress-bar>
     <mat-card >
       <mat-card-title class="center">Creaza-ti cont in reteaua FamilyLife</mat-card-title>
-      <mat-card-subtitle class="center">Ai acces la cei mai buni medici de familie din Romania, te programezi online, ai acces la dosarul tau medical oriunde, oricand!</mat-card-subtitle>
-      <!-- <mat-spinner ></mat-spinner> -->
+      <br/>
+      <mat-card-subtitle class="center">Ai acces la cei mai buni medici de familie din Romania!</mat-card-subtitle>
+      <mat-card-subtitle class="center">Te programezi online, ai acces la dosarul tau medical oriunde, oricand!</mat-card-subtitle>
       <div *ngIf="!this.continuePressed">
         <mat-form-field appearance="outline">
           <mat-label>Email</mat-label>
@@ -20,7 +22,6 @@
         <mat-form-field appearance="outline">
           <mat-label>Numar de telefon</mat-label>
           <input
-            autocomplete="username"
             matInput
             type="text"
             name="phoneNumber"
@@ -32,7 +33,7 @@
         <mat-form-field appearance="outline">
           <mat-label>Parola</mat-label>
           <input
-            autocomplete="new-password"
+            autocomplete="password"
             matInput
             type="password"
             name="password"
@@ -44,7 +45,7 @@
         <mat-form-field appearance="outline">
           <mat-label>Confirmare parola</mat-label>
           <input
-            autocomplete="new-password"
+            autocomplete="password"
             matInput
             type="password"
             name="confirmPassword"
@@ -55,9 +56,15 @@
             <mat-error *ngIf="form.get('passwords').hasError('notSame')">Cele doua parole nu corespund</mat-error>
         </mat-form-field>
       </form>
+      <mat-slide-toggle
+        formControlName="isMedic"
+        (click)="toggleButtonPressed()"
+        >Doriti sa va creati un cont de medic?
+      </mat-slide-toggle>
+      <h5>*Daca doriti sa activati pe platforma noastra ca medic, veti trece printr-o serie de verificari!</h5>
         <div class="center">
           <button
-            mat-raised-button
+            mat-button
             color="accent"
             (click)="this.continueButtonPressed()">Continuare
           </button>
@@ -95,7 +102,14 @@
           <mat-error *ngIf="form.get('cnp').invalid">Introduceti un CNP valid.</mat-error>
         </mat-form-field>
         <mat-form-field appearance="outline">
-          <mat-label>Adresa de domiciliu</mat-label>
+          <mat-label>Alegeti judetul</mat-label>
+          <mat-select
+             formControlName="county">
+             <mat-option *ngFor="let judet of this.programareService.judete" [value]="judet">{{ judet }}</mat-option>
+          </mat-select>
+       </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Adresa locuintei</mat-label>
           <input
             matInput
             type="text"
@@ -104,13 +118,36 @@
             placeholder="Adresa de domiciliu">
           <mat-error *ngIf="form.get('address').invalid">Introduceti o adresa valida.</mat-error>
         </mat-form-field>
+        <mat-form-field *ngIf="this.medicOrNot" appearance="outline">
+          <mat-label>Specializarea dumneavoastra</mat-label>
+          <mat-select
+             formControlName="specialization"
+             name="specialization">
+             <mat-option value="option1">Option 1</mat-option>
+             <mat-option value="option2">Option 2</mat-option>
+             <mat-option value="option3">Option 3</mat-option>
+          </mat-select>
+          <mat-error *ngIf="form.get('specialization').invalid">
+             You must make a selection
+          </mat-error>
+        </mat-form-field>
         <div class="center">
+          <div class="button">
+            <button
+              mat-button
+              color="accent"
+              (click)="this.backToFirstForm()"
+              >Inapoi
+            </button>
+          </div>
           <button
-            mat-raised-button
+            mat-button
             color="accent"
             type="submit">Creeaza cont
           </button>
       </div>
     </div>
+    <br/>
+    <p class="center"><a routerLink="/auth/login">Inapoi la conectare.</a></p>
   </mat-card>
 </form>

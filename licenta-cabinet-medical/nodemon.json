@@ -1,6 +1,7 @@
 {
   "env": {
     "MONGO_ATLAS_PW": "pGG27l1wvuxlRmCc",
-    "JWT_KEY": "secret_this_ehe_should_be_longer"
+    "JWT_KEY": "secret_this_ehe_should_be_longer",
+    "PASSPHRASE_AES": "ia parola de aici"
   }
 }

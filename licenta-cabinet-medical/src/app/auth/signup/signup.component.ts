@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit } from "@angular/core";
 import { FormBuilder, FormControl, FormGroup, FormGroupDirective, NgForm, Validators } from "@angular/forms";
 import { ErrorStateMatcher } from "@angular/material/core";
 import { Observable, Subscription } from "rxjs";
+import { ProgramareService } from "src/app/programare/programare.service";
 import { AuthService } from "../auth.service";
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
@@ -27,9 +28,10 @@ export class SignupComponent implements OnInit, OnDestroy{
   continuePressed = false;
   samePasswords = false;
   matcher = new MyErrorStateMatcher();
+  medicOrNot = false;
 
 
-  constructor(private authService: AuthService, private fb: FormBuilder) {
+  constructor(private authService: AuthService, private fb: FormBuilder, public programareService: ProgramareService) {
     this.form = this.fb.group({
       firstName: new FormControl(null, {validators: [Validators.required, Validators.pattern('^[A-Za-z -]+$')]}),
       lastName:  new FormControl(null, {validators: [Validators.required, Validators.pattern('^[A-Za-z -]+$')]}),
@@ -38,9 +40,12 @@ export class SignupComponent implements OnInit, OnDestroy{
         confirmPassword: new FormControl('', {validators: [Validators.required]})
       }, {validators: this.checkPasswords}),
       email:  new FormControl(null, {validators: [Validators.required, Validators.email]}),
-      phoneNumber: new FormControl(null, {validators: [Validators.required, Validators.maxLength(10), Validators.minLength(10), Validators.pattern('^[0-9]+$')]}),
+      phoneNumber: new FormControl('+40', {validators: [Validators.required, Validators.maxLength(12), Validators.minLength(10), Validators.pattern('^\s*[0-9+]+$')]}),
       cnp: new FormControl(null, {validators: [Validators.required, Validators.maxLength(13), Validators.minLength(13), Validators.pattern('^[0-9]+$')]}),
-      address: new FormControl(null, {validators: [Validators.required]})
+      county: new FormControl('', {validators: [Validators.required]}),
+      address: new FormControl(null, {validators: [Validators.required]}),
+      specialization: new FormControl(''),
+      isMedic: new FormControl(false)
     });
   }
 
@@ -50,20 +55,20 @@ export class SignupComponent implements OnInit, OnDestroy{
       .subscribe(authStatus => {
         this.isLoading = false;
       });
-      // this.form = new FormGroup({
-      //   firstName: new FormControl(null, {validators: [Validators.required, Validators.pattern('^[A-Za-z -]+$')]}),
-      //   lastName:  new FormControl(null, {validators: [Validators.required, Validators.pattern('^[A-Za-z -]+$')]}),
-      //   email:  new FormControl(null, {validators: [Validators.required, Validators.email]}),
-      //   password: new FormControl('', {validators: [Validators.required]}),
-      //   confirmPassword: new FormControl('', {validators: [Validators.required]}),
-      //   phoneNumber: new FormControl(null, {validators: [Validators.required, Validators.maxLength(10), Validators.minLength(10), Validators.pattern('^[0-9]+$')]}),
-      //   cnp: new FormControl(null, {validators: [Validators.required, Validators.maxLength(13), Validators.minLength(13), Validators.pattern('^[0-9]+$')]}),
-      //   address: new FormControl(null, {validators: [Validators.required]})
-      // });
   }
 
-  onSignup() {
-    console.log(this.form.value);
+  onSignup(form: NgForm) {
+    // console.log(this.form.value);
+    if (form.invalid) {
+      return;
+    } else {
+      this.isLoading = true;
+      this.authService.createUser(form.value.email, form.value.passwords.password,
+                                  form.value.phoneNumber, form.value.lastName,
+                                  form.value.firstName, form.value.cnp,
+                                  form.value.county, form.value.address,
+                                  form.value.specialization, form.value.isMedic);
+    }
   }
 
   ngOnDestroy() {
@@ -76,19 +81,17 @@ export class SignupComponent implements OnInit, OnDestroy{
       !this.form.get('passwords.password').invalid &&
       !this.form.get('passwords.confirmPassword').invalid) {
     this.continuePressed = true;
-    console.log(this.form.value)
+    // console.log(this.form.value)
     }
   }
 
-  // checkPasswords (control: FormControl): {[s: string] : boolean} {
-  //   if(this.form) {
-  //     if (control.value !== this.form.get("password").value) {
-  //       return {'notSame': true};
-  //     }
-  //   }
-  //   return null;
-  // }
+  backToFirstForm() {
+    this.continuePressed = false;
+  }
 
+  toggleButtonPressed() {
+    this.medicOrNot = !this.medicOrNot;
+  }
 
   checkPasswords(group: FormGroup) { // here we have the 'passwords' group
     const password = group.get('password').value;

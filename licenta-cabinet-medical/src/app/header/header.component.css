@@ -12,9 +12,9 @@ a{
   color: black;
 }
 
-img {
-  margin-left: 50px;
-  margin-top: 10px;
+#brandUL {
+  margin-left: 0px;
+  margin-top: 0px;
 }
 
 header{
@@ -35,7 +35,7 @@ header{
 
 .container{
   max-width: 120rem;
-  width: 90%;
+  width: 95%;
   margin: 0 auto;
 }
 
@@ -52,7 +52,7 @@ header{
 
 nav{
   /*padding-top: 5rem;*/
-  padding-top: 80px;
+  padding-top: 60px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -79,7 +79,7 @@ nav{
 
 nav ul{
   display: flex;
-  font-size: 17px;
+  font-size: 1rem;
 }
 
 nav ul li{
@@ -89,7 +89,7 @@ nav ul li{
 }
 
 nav ul li:nth-child(1){
-  animation-delay: 0s;
+  animation-delay: 0.6s;
 }
 
 nav ul li:nth-child(2){
@@ -97,7 +97,7 @@ nav ul li:nth-child(2){
 }
 
 nav ul li:nth-child(3){
-  animation-delay: .6s;
+  animation-delay: 0s;
 }
 
 nav ul li:nth-child(4){
@@ -105,7 +105,7 @@ nav ul li:nth-child(4){
 }
 
 nav ul li:nth-child(5){
-  animation-delay: 1.2s;
+  animation-delay: 0s;
 }
 
 nav ul li a{
@@ -168,47 +168,44 @@ nav ul li a:hover::after{
   }
 }
 
-@media screen and (max-width: 1000px){
-
-  .menu-toggle{
-    display: block;
-    position: absolute;
-  }
+@media screen and (max-width: 705px){
 
   #brandUL {
     display: none;
   }
+
+  header{
+    margin-top: auto;
+  }
+
+  .toggle-container {
+      width: auto;
+      display: flex;
+      align-items: center;
+  }
+
   #hamburger{
-    display: block;
-    margin-right: -15px;
-    margin-top: 25px;
+    padding: 20px;
+    position: absolute;
+    right: 10px;
+    display: inline-block;
+    vertical-align: middle;
   }
 
   #toggleBrandID{
-    display: block;
-    width: 500px;
-    height: auto;
-    align-items: center;
-    flex-direction: column;
-    justify-content: center;
-    text-align: center;
-    /*color: #eeeeee;*/
-    /*font-size: 2.5rem;*/
+    padding: 15px;
+    right: 10px;
+    display: inline-block;
+    vertical-align: middle;
     cursor: pointer;
-    margin-top: 7px;
-    margin-left: -180px;
-    font-weight: 300;
   }
+
 
   #navID {
     margin-top: -50px;
   }
 
 
-  header{
-    margin-top: auto;
-    /*background: black;*/
-  }
 
   nav{
     padding-top: 0;
@@ -234,11 +231,6 @@ nav ul li a:hover::after{
     font-size: 20px;
   }
 
-  /*.brand{*/
-  /*  font-size: 3.5rem;*/
-  /*  margin-top: 10px;*/
-  /*}*/
-
   .overlay.menu-open,
   nav.menu-open{
     display: flex;
@@ -249,7 +241,4 @@ nav ul li a:hover::after{
     display: none;
   }
 
-  img {
-    margin-left: -35px;
-  }
 }

@@ -1,34 +1,61 @@
-Programari
-<div class="programare">
+<div class="center">
   <mat-card>
-    <form  [formGroup]="form" (submit)="onSavePost()" #postForm="ngForm" *ngIf="!isLoading">
-      <mat-form-field appearance="outline">
-        <mat-label>First Name</mat-label>
-        <input
-          matInput
-          type="text"
-          name="first_name"
-          [formControlName] = "'first_name'"
-          placeholder="First Name">
-          <mat-error *ngIf="form.get('first_name').invalid">Your first name</mat-error>
-      </mat-form-field>
-      <mat-form-field appearance="outline">
-        <mat-label>Last Nameee</mat-label>
-        <input
-          matInput
-          type="text"
-          name="last_name"
-          [formControlName] = "'last_name'"
-          placeholder="Last Name">
-          <mat-hint>Hint</mat-hint>
-          <mat-error *ngIf="form.get('last_name').invalid">Your last name</mat-error>
-      </mat-form-field>
-      <button
-        mat-raised-button
-        color="accent"
-        type="submit">Save post</button>
-    </form>
+     <mat-card-title class="center">Completeaza formularul pentru a trece la pasul urmator</mat-card-title>
+     <mat-card-subtitle class="center">Pentru a gasi un medic potrivit nevoilor dumneavoastra trebuie sa completati formularul de mai jos.</mat-card-subtitle>
+     <br/>
+     <form  [formGroup]="form" (ngSubmit)="onSavePost()" *ngIf="!isLoading">
+     <div class="form">
+        <mat-form-field>
+           <mat-label>Selectati problema</mat-label>
+           <mat-select
+              formControlName="problema"
+              name="problema">
+              <mat-option value="option1">Option 1</mat-option>
+              <mat-option value="option2">Option 2</mat-option>
+              <mat-option value="option3">Option 3</mat-option>
+           </mat-select>
+           <mat-error *ngIf="form.get('problema').invalid">
+              You must make a selection
+           </mat-error>
+        </mat-form-field>
+        <mat-form-field>
+           <mat-label>Alegeti judetul</mat-label>
+           <mat-select
+              formControlName="judet">
+              <mat-option *ngFor="let judet of this.programareService.judete" [value]="judet">{{ judet }}</mat-option>
+           </mat-select>
+        </mat-form-field>
+        <mat-form-field>
+           <mat-label>Incepand cu data</mat-label>
+           <input
+           matInput
+           [min]="minDate"
+           [max]="maxDate"
+           [matDatepickerFilter]="this.myFilter"
+           [matDatepicker]="picker"
+           formControlName = "data">
+           <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+           <mat-datepicker #picker ></mat-datepicker>
+           <mat-error *ngIf="form.get('data').invalid">Introduceti o data valida</mat-error>
+        </mat-form-field>
+     </div>
+     <div class="onlineCheck">
+        <h4>Clinica noastra va pune la dispozitie si consultatii online, folosind aplicatia Zoom.</h4>
+        <section class="example-section">
+           <mat-checkbox
+              class="example-margin"
+              [formControlName]="'consultatieOnline'">
+              Doriti o consultatie online?
+           </mat-checkbox>
+        </section>
+     </div>
+     <div class="center">
+        <button
+           mat-button
+           color="accent"
+           type="submit">Incepe Cautarea
+        </button>
+     </div>
+     </form>
   </mat-card>
-
 </div>
-

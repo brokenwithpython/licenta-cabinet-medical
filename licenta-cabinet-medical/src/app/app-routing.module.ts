@@ -1,8 +1,10 @@
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
+import { AuthGuard } from "./auth/auth.guard";
 import { LoginComponent } from "./auth/login/login.component";
 import { MainScreenComponent } from "./main-screen/main-screen.component";
 import { ProgramareComponent } from "./programare/programare.component";
+import { SelectMedicAndHourComponent } from "./select-medic-and-hour/select-medic-and-hour.component";
 
 
 const appRoutes: Routes = [
@@ -10,13 +12,15 @@ const appRoutes: Routes = [
   {path: 'home', component: MainScreenComponent},
   {path: 'auth', loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule)},
   {path: 'programare', component: ProgramareComponent},
+  {path: 'selectare', component: SelectMedicAndHourComponent},
   {path: '**', redirectTo: '/home'}
 ];
 
 
 @NgModule({
   imports: [RouterModule.forRoot(appRoutes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
+  providers: [AuthGuard]
 })
 export class AppRoutingModule {
 

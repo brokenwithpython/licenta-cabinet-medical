@@ -1,30 +1,77 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup, FormGroupDirective, NgForm, Validators, FormBuilder } from '@angular/forms';
+import { ErrorStateMatcher } from '@angular/material/core';
+import { Router } from '@angular/router';
+import { Moment } from 'moment';
+import { ProgramareService } from './programare.service';
+
+export class MyErrorStateMatcher implements ErrorStateMatcher {
+  isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
+    const isSubmitted = form && form.submitted;
+    return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
+  }
+}
+
 
 
 @Component({
   selector: 'app-programare',
   templateUrl: './programare.component.html',
   styleUrls: ['./programare.component.css']
+
 })
 export class ProgramareComponent implements OnInit {
 
   isLoading = false;
   form: FormGroup;
+  minDate: Date;
+  maxDate: Date;
 
-  constructor() { }
+  myFilter = (d: Moment | null): boolean => {
+    let day = null;
+    if(d) {
+      day = d.day();
+    } else {
+      day = new Date().getDay();
+    }
+    return day !== 0 && day !== 6;
+  }
+
+
+  constructor(public programareService: ProgramareService) {
+    const currentYear = new Date().getFullYear();
+    this.minDate = new Date();
+    this.maxDate = new Date(currentYear + 0, new Date().getMonth() + 3, 0);
+
+   }
+
+
 
   ngOnInit(): void {
+    let calendarDate = new Date();
+    if (new Date().getDay() == 6) {
+      calendarDate.setDate(calendarDate.getDate() + 2);
+    } else if (new Date().getDay() == 0) {
+      calendarDate.setDate(calendarDate.getDate() + 1);
+    }
     this.form = new FormGroup({
-      first_name: new FormControl(null, {validators: [Validators.required, Validators.minLength(3)]}),
-      last_name: new FormControl(null, {validators: [Validators.required]}),
-    })
+      problema: new FormControl(null, {validators: [Validators.required]}),
+      judet: new FormControl(null, {validators: [Validators.required]}),
+      data: new FormControl(calendarDate, {validators: [Validators.required]}),
+      consultatieOnline: new FormControl(false)
+    });
   }
 
 
   onSavePost() {
-    console.log("nimic");
+    if (this.form.valid) {
+      this.programareService.getSchedulingVariants(this.form.get('problema').value,
+                                                    this.form.get('judet').value,
+                                                    this.form.get('data').value,
+                                                    this.form.get('consultatieOnline').value);
+    } else {
+      console.log(this.form.value);
+    }
   }
 
 }
-

@@ -1,0 +1,78 @@
+<div class="grid">
+  <div class="item" *ngFor="let medic of options">
+    <mat-card id="medic{{i}}">
+      <div class="header">
+        <img src="../../assets/medic_img.png" alt="Avatar">
+        <div class="name">
+          <h3>{{medic.lastName}} {{medic.firstName}}</h3>
+        </div>
+      </div>
+      <div class="tag">
+        <p>Specializare:</p>
+      </div>
+      <div class="tagContent">
+        <p>{{medic.specialization}}</p>
+      </div>
+      <div class="tag">
+        <p>Locatia:</p>
+      </div>
+      <div class="tagContent">
+        <p>{{medic.judet}}</p>
+      </div>
+      <!-- <button id="button{{i}}" (click)="myFunction(i)">asd</button> -->
+      <div class="button">
+        <button
+          mat-button
+          color="accent"
+          (click)="myFunction()"
+          >Finalizare programare
+        </button>
+      </div>
+    </mat-card>
+  </div>
+
+
+  <!-- <div class="item">
+    <mat-card>
+      <img src="../../assets/medic_img.png" alt="Avatar">
+      <div class="name">
+        <h3>Nume Prenume</h3>
+      </div>
+      <div class="tag">
+        <p>Specializare:</p>
+      </div>
+      <div class="tagContent">
+        <p>Specializarea medicului</p>
+      </div>
+    </mat-card>
+  </div>
+  <div class="item">
+    <mat-card>
+      <img src="../../assets/medic_img.png" alt="Avatar">
+      <div class="name">
+        <h3>Nume Prenume</h3>
+      </div>
+      <div class="tag">
+        <p>Specializare:</p>
+      </div>
+      <div class="tagContent">
+        <p>Specializarea medicului</p>
+      </div>
+    </mat-card>
+  </div>
+  <div class="item">
+    <mat-card>
+      <img src="../../assets/medic_img.png" alt="Avatar">
+      <div class="name">
+        <h3>Nume Prenume</h3>
+      </div>
+      <div class="tag">
+        <p>Specializare:</p>
+      </div>
+      <div class="tagContent">
+        <p>Specializarea medicului</p>
+      </div>
+
+    </mat-card>
+  </div> -->
+</div>

@@ -1,0 +1,51 @@
+Platformă web pentru un cabinet medical	Lucrarea de licență va avea ca scop proiectarea și
+ implementarea unei aplicații web pentru un cabinet medical. Vor exista două părți: -
+ Partea dedicată pacienților careva conține:
+  - sistem de autentificare ca pacient
+  - sistem pentru programări
+  - sistem vizualizare analize
+  - sistem de chat în care se va putea lua legătură cu medicul
+  - sistem pentru istoric programări - sistem pentru profilul utilizatorului
+  - sistem de recomandări dar și de sumar al consultației în care pacientul va putea vedea toate informațiile pe care doctorul i le-a transmis în timpul consultației
+Partea dedicată medicilor care va conține:
+  - sistem de autentificare ca medic
+  - sistem gestiune pacienți
+  - sistem de chat în care se va putea răspunde mesajelor de la pacienți
+  - sistem de gestiune a consultațiilor - sistem gestiune a prospectelor și a informațiilor
+
+
+ Partea de Front-End va fi realizată cu
+  - HTML - CSS - JavaScript - Angular - jQuery
+Partea de Back-End va fi realizată cu:
+  - Node JS - Deno.js - Express JS - JavaScript - MongoDB
+
+
+navbar mai mic cu logo si butoane
+jspdf
+
+
+Task-uri:
+
+- Autentificare:
+  - autentificare ca medic / pacient
+  - ai uitat parola
+  - mail confirmare cont
+  - schimba parola
+
+- Main screen:
+  - design pagina home - neautentificat
+  - design pagina home - autentificat
+
+- Programare:
+  - design pagina programare
+  - backend programare
+  - backend editare programare
+  - backend stergere programare
+
+- Sistem vizualizare informatii scrise de medic
+  - sistem istoric programare
+  - sistem vizualizare informatii scrise de medic in timpul programarii
+
+- Sistem contul meu:
+  - sistem informatii despre mine
+  - sistem modificare informatii

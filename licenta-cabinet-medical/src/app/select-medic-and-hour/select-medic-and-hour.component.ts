@@ -27,7 +27,8 @@ export class SelectMedicAndHourComponent implements OnInit, AfterContentChecked 
     this.breakpoint = (event.target.innerWidth <= 770) ? 1 : 4;
   }
 
-  myFunction() {
+  myFunction(medic) {
+    console.log(medic);
     // this.programareService.getSchedulingVariants("option2", "asd", "asd");
   }
 }

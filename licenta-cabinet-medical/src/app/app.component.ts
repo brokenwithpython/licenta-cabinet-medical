@@ -13,7 +13,7 @@ export class AppComponent implements OnInit{
   private authListnerSubs: Subscription;
   userIsAuthenticated = false;
 
-  constructor(private authService: AuthService) { }
+  constructor(public authService: AuthService) { }
 
 
   ngOnInit(): void {
@@ -24,5 +24,7 @@ export class AppComponent implements OnInit{
       this.userIsAuthenticated = isAuthenticated;
       console.log(isAuthenticated);
     });
+
+
   }
 }

@@ -1,0 +1,72 @@
+<div *ngIf="!this.authService.getIsAuth()">
+  <h2><mat-dialog-title>Atentie!</mat-dialog-title></h2>
+  <mat-dialog-content>
+    Inainte de a face o programare trebuie sa te autentifici!
+  </mat-dialog-content>
+  <div class="buttons">
+    <div class="button">
+        <button
+          mat-button
+          color="accent"
+          (click)="onNoClick()"
+          ><a routerLink="/auth/login">Autentificare</a>
+      </button>
+    </div>
+    <div class="button">
+      <button
+        mat-button
+        color="accent"
+        (click)="onNoClick()"
+      ><a routerLink="/auth/sign-up">Inregistrare</a>
+    </button>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="this.authService.getIsAuth()">
+  <mat-dialog-content>
+    Data: {{ data.date }}
+  </mat-dialog-content>
+  <form  [formGroup]="form" (ngSubmit)="onSavePost()">
+    <div class="form">
+      <mat-form-field>
+        <mat-label>Selectati problema</mat-label>
+        <mat-select
+        formControlName="problema"
+        name="problema">
+        <mat-option value="option1">Option 1</mat-option>
+        <mat-option value="option2">Option 2</mat-option>
+        <mat-option value="option3">Option 3</mat-option>
+      </mat-select>
+      <mat-error *ngIf="form.get('problema').invalid">
+        You must make a selection
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Alegeti judetul</mat-label>
+      <mat-select
+      formControlName="localitate">
+      <mat-option *ngFor="let judet of data.localitate" [value]="judet">{{ judet }}</mat-option>
+    </mat-select>
+    <mat-error *ngIf="form.get('localitate').invalid">
+      You must make a selection
+    </mat-error>
+  </mat-form-field>
+  <mat-checkbox
+  class="example-margin"
+  [formControlName]="'consultatieOnline'">
+  Doriti o consultatie online?
+</mat-checkbox>
+</div>
+</form>
+<mat-dialog-actions>
+  <button mat-button [mat-dialog-close]="[false]">No Thanks</button>
+  <button
+    [disabled]="this.form.get('localitate').invalid || this.form.get('problema').invalid"
+    mat-button
+    [mat-dialog-close]="[true, this.form.get('localitate').value,
+    this.form.get('problema').value,
+    this.form.get('consultatieOnline').value]">Ok</button>
+</mat-dialog-actions>
+</div>
+

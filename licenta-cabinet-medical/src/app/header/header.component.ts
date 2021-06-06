@@ -13,7 +13,7 @@ export class HeaderComponent implements OnInit, OnDestroy{
 
   // comandaCompleta = false;
   // private comandaSub: Subscription;
-  constructor(private authService: AuthService) { }
+  constructor(public authService: AuthService) { }
 
   private authListnerSubs: Subscription;
   userIsAuthenticated = false;

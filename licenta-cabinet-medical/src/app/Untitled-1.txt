@@ -27,7 +27,8 @@ jspdf
 Task-uri:
 
 - Autentificare:
-  - autentificare ca medic / pacient
+  - autentificare ca medic
+  - autentificare ca pacient V
   - ai uitat parola
   - mail confirmare cont
   - schimba parola
@@ -43,9 +44,9 @@ Task-uri:
   - backend stergere programare
 
 - Sistem vizualizare informatii scrise de medic
-  - sistem istoric programare
-  - sistem vizualizare informatii scrise de medic in timpul programarii
+- sistem gestiune programari
+- sistem vizualizare informatii scrise de medic in timpul programarii
 
 - Sistem contul meu:
-  - sistem informatii despre mine
-  - sistem modificare informatii
+- sistem informatii despre mine
+- sistem modificare informatii

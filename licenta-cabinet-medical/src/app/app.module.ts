@@ -21,6 +21,8 @@ import {
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
 import { SelectMedicAndHourComponent } from './select-medic-and-hour/select-medic-and-hour.component';
 import { AuthInterceptor } from './auth/auth-interceptor';
+import { CalendarDialogComponent } from './calendar/calendar-dialog/calendar-dialog.component';
+import { MyAccountComponent } from './my-account/my-account.component';
 
 
 @NgModule({
@@ -31,7 +33,9 @@ import { AuthInterceptor } from './auth/auth-interceptor';
     ProgramareComponent,
     BottomNavbarComponent,
     CalendarComponent,
-    SelectMedicAndHourComponent
+    SelectMedicAndHourComponent,
+    CalendarDialogComponent,
+    MyAccountComponent
 
   ],
   imports: [
@@ -46,7 +50,8 @@ import { AuthInterceptor } from './auth/auth-interceptor';
   providers: [ {provide: MAT_DATE_LOCALE, useValue: 'ro'},
                 { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
 ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [CalendarDialogComponent]
 })
 export class AppModule { }
 

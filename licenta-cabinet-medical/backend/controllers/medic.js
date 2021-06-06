@@ -11,7 +11,7 @@ exports.createMedic = (req, res, next) => {
   phoneEnc = cryptoJs.AES.encrypt(req.body.phoneNumber, process.env.PASSPHRASE_AES).toString();
   addressEnc = cryptoJs.AES.encrypt(req.body.address, process.env.PASSPHRASE_AES).toString();
   countyEnc = cryptoJs.AES.encrypt(req.body.county, process.env.PASSPHRASE_AES).toString();
-  specializationEnc = cryptoJs.AES.encrypt(req.body.specialization, process.env.PASSPHRASE_AES)
+  specializationEnc = cryptoJs.AES.encrypt(req.body.specialization, process.env.PASSPHRASE_AES).toString();
   bcrypt.hash(req.body.password, 10).then(hash => {
     const medic = new Medic({
       email: req.body.email,

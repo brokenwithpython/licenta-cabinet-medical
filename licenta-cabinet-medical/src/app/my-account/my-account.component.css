@@ -1,0 +1,103 @@
+mat-card {
+  background-color: #f8f8f8;
+  margin: 0 auto;
+}
+
+.column {
+  float: left;
+}
+
+.left {
+  width: 25%;
+}
+.right {
+  width: 75%;
+}
+
+#img {
+  width: 40%;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#nameAfterImg {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+#infos {
+  margin-top: 100px;
+}
+
+.anotherColumn {
+  margin-top: -70px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 100%;
+}
+
+
+.buttons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.button {
+  padding: 5px 5px 5px;
+}
+
+.mat-button {
+  background-color: #0190B0;
+  color: #ffff;
+}
+
+
+mat-form-field {
+  width: 100%;
+}
+
+
+.matCardClass {
+  width: 85%;
+  height: 900px;
+
+}
+.card {
+  width: 100%;
+}
+
+div.textAlign{
+  text-align: center;
+}
+
+img {
+  vertical-align: middle;
+  border-radius: 50%;
+  height: 100px;
+  width: 100px;
+}
+
+@media screen and (max-width: 980px){
+
+  .column {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .left {
+    width: 100%;
+  }
+  .right {
+    width: 100%;
+  }
+
+  #img {
+    width: auto;
+  }
+}

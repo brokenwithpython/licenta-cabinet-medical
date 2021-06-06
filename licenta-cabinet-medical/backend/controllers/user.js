@@ -86,3 +86,48 @@ exports.loginUser = (req, res, next) => {
     });
   });
 }
+
+exports.getUsersPersonalData = (req, res, next) => {
+  Users = UserInfo.find({userCreator: req.query.userId}).then(user =>{
+    user = user[0];
+    try {
+      phoneNumberDec = cryptoJs.AES.decrypt(user.phoneNumber, process.env.PASSPHRASE_AES).toString(cryptoJs.enc.Utf8);
+      CNPDec = cryptoJs.AES.decrypt(user.CNP, process.env.PASSPHRASE_AES).toString(cryptoJs.enc.Utf8);
+      countyDec = cryptoJs.AES.decrypt(user.county, process.env.PASSPHRASE_AES).toString(cryptoJs.enc.Utf8);
+      addressDec = cryptoJs.AES.decrypt(user.address, process.env.PASSPHRASE_AES).toString(cryptoJs.enc.Utf8);
+    }
+    catch(err) {
+      console.log(err);
+    }
+    res.status(200).json({
+      message: "Informatiile personale",
+      personalData: [phoneNumberDec, CNPDec, countyDec, addressDec, user.firstName, user.lastName]
+    });
+  }).catch(err => {
+    return res.status(404).json({
+      message: "Could not find your user in our DataBase!",
+      err: err
+    });
+  });
+}
+
+exports.putUsersPersonalData = (req, res, next) => {
+  cnpEnc = cryptoJs.AES.encrypt(req.body.CNP, process.env.PASSPHRASE_AES).toString();
+  phoneEnc = cryptoJs.AES.encrypt(req.body.phoneNumber, process.env.PASSPHRASE_AES).toString();
+  addressEnc = cryptoJs.AES.encrypt(req.body.address, process.env.PASSPHRASE_AES).toString();
+  countyEnc = cryptoJs.AES.encrypt(req.body.county, process.env.PASSPHRASE_AES).toString();
+  UserInfo.updateOne({userCreator: req.body.userId},
+          {
+            firstName: req.body.firstName,
+            lastName: req.body.lastName,
+            phoneNumber: phoneEnc,
+            CNP: cnpEnc,
+            address: addressEnc,
+            county: countyEnc})
+    .then(output => {
+      // console.log(output);
+      return res.status(200).json({
+        message: "Informatiile personale au fost modificate cu succes!"
+      });
+    })
+}

@@ -20,6 +20,7 @@ const BACKEND_URL_MEDIC = environment.apiUrl + 'medic/';
 export class AuthService {
 
   private authStatusListner = new Subject<boolean>();
+  private retriveInfosListner = new Subject();
   private token: string;
   private userId: string;
   private isMedic: string;
@@ -91,6 +92,47 @@ export class AuthService {
       });
   }
 
+  getPersonalData(isMedic) {
+    let backendApiLink
+    if(isMedic) {
+      backendApiLink= BACKEND_URL_MEDIC;
+    } else {
+      backendApiLink = BACKEND_URL;
+    }
+    const queryParams = `?userId=${this.getUserId()}`;
+    console.log(queryParams);
+    this.http.get<{message: string, personalData: []}>(backendApiLink + 'getPersonalInfo/' + queryParams)
+      .subscribe(res => {
+        this.retriveInfosListner.next(res.personalData);
+        return res.personalData;
+      })
+  }
+
+  putPersonalData(firstName: string, lastName: string,
+                  phoneNumber: string, CNP: string,
+                  address: string, county: string) {
+    const myData = {
+      userId: this.userId,
+      firstName: firstName,
+      lastName: lastName,
+      phoneNumber: phoneNumber,
+      CNP: CNP,
+      address: address,
+      county: county
+    }
+    let backendApiLink
+    if(this.getIsMedicAuth()) {
+      backendApiLink= BACKEND_URL_MEDIC;
+    } else {
+      backendApiLink = BACKEND_URL;
+    }
+    this.http.put(backendApiLink + "putPersonalInfo", myData).subscribe(data => {
+
+    })
+
+
+  }
+
   logout() {
     this.token = null;
     this.userId = null;
@@ -159,8 +201,19 @@ export class AuthService {
     return this.isAuthenticated;
   }
 
+  getIsMedicAuth() {
+    if(localStorage.getItem('isMedic')) {
+      return localStorage.getItem('isMedic') === 'true';
+    }
+    return false;
+  }
+
   getAuthStatusListner() {
     return this.authStatusListner.asObservable();
+  }
+
+  getInfosListner() {
+    return this.retriveInfosListner.asObservable();
   }
 
   getUserId() {

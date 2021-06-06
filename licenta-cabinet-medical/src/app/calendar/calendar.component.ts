@@ -1,5 +1,9 @@
-import { AfterViewInit, Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { CalendarService } from './calendar.service';
+import {MatMenuTrigger} from '@angular/material/menu';
+import { MatDialog } from '@angular/material/dialog';
+import { CalendarDialogComponent } from './calendar-dialog/calendar-dialog.component';
+import { ProgramareService } from '../programare/programare.service';
 
 @Component({
   selector: 'app-calendar',
@@ -20,7 +24,8 @@ export class CalendarComponent implements OnInit, AfterViewInit {
 
 
 
-  constructor(public calendarService: CalendarService) {
+  constructor(public calendarService: CalendarService, public dialog: MatDialog
+    ,public programareService: ProgramareService) {
   }
 
   ngOnInit(): void {
@@ -56,8 +61,28 @@ export class CalendarComponent implements OnInit, AfterViewInit {
   }
 
   dayClick(event) {
-    console.log(event.srcElement.id.toString().slice(3) + " " + (this.monthNumber + 1) + " " + this.currentYear);
+
+    let date = event.srcElement.id.toString().slice(3) + " " + (this.monthNumber + 1) + " " + this.currentYear;
+    let dTemp = date.split(" ");
+    let dFinal = new Date(parseInt(dTemp[2]), parseInt(dTemp[1]), parseInt(dTemp[0]));
+    const dialogRef = this.dialog.open(CalendarDialogComponent, {
+      width:'400px',
+      data: {date: date,
+              localitate: this.programareService.judete}});
+    dialogRef.afterClosed().subscribe(result =>{
+      if(result) {
+        if (result[0]) {
+          this.programareService.getSchedulingVariants(result[2], result[1], dFinal, result[3]);
+        }
+      }
+
+    });
 
   }
 
+  openDialog() {
+
+    // Manually restore focus to the menu trigger since the element that
+    // opens the dialog won't be in the DOM any more when the dialog closes.
+  }
 }

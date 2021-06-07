@@ -1,6 +1,8 @@
 import { AfterContentChecked, AfterContentInit, AfterViewChecked, AfterViewInit, Component, OnInit } from '@angular/core';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import * as $ from 'jquery';
 import { ProgramareService } from '../programare/programare.service';
+import { SelectHourDialogComponent } from './select-hour-dialog/select-hour-dialog.component';
 
 @Component({
   selector: 'app-select-medic-and-hour',
@@ -11,7 +13,7 @@ export class SelectMedicAndHourComponent implements OnInit, AfterContentChecked 
 
   breakpoint;
 
-  constructor(public programareService: ProgramareService) {
+  constructor(public programareService: ProgramareService, public dialog: MatDialog) {
   }
 
   options = this.programareService.getScheduleOptions();
@@ -27,8 +29,27 @@ export class SelectMedicAndHourComponent implements OnInit, AfterContentChecked 
     this.breakpoint = (event.target.innerWidth <= 770) ? 1 : 4;
   }
 
-  myFunction(medic) {
-    console.log(medic);
-    // this.programareService.getSchedulingVariants("option2", "asd", "asd");
+  postSchedule(medic) {
+    // console.log(medic);
+
+  }
+
+
+  selectHour(medic) {
+    const dialogRef = this.dialog.open(SelectHourDialogComponent, {
+      width:'250px',
+      data: {hours: medic.finalHours}});
+    dialogRef.afterClosed().subscribe(result =>{
+      if(result) {
+        if (result[0]) {
+          // this.programareService.getSchedulingVariants(result[2], result[1], dFinal, result[3]);
+          medic.ora = result[1];
+          document.getElementById('medicCard' + medic.cardId).style.backgroundColor = "#B4D4F2";
+          document.getElementById('medicCard' + medic.cardId).style.transition = "background-color 3s ease-out";
+          this.programareService.addSchedule(medic);
+        }
+      }
+
+    });
   }
 }

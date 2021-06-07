@@ -62,7 +62,7 @@ export class CalendarComponent implements OnInit, AfterViewInit {
 
   dayClick(event) {
 
-    let date = event.srcElement.id.toString().slice(3) + " " + (this.monthNumber + 1) + " " + this.currentYear;
+    let date = event.srcElement.id.toString().slice(3) + " " + (this.monthNumber) + " " + this.currentYear;
     let dTemp = date.split(" ");
     let dFinal = new Date(parseInt(dTemp[2]), parseInt(dTemp[1]), parseInt(dTemp[0]));
     const dialogRef = this.dialog.open(CalendarDialogComponent, {

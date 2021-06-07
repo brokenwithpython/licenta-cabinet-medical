@@ -43,10 +43,10 @@ Task-uri:
   - backend editare programare
   - backend stergere programare
 
-- Sistem vizualizare informatii scrise de medic
 - sistem gestiune programari
+- Sistem vizualizare informatii scrise de medic
 - sistem vizualizare informatii scrise de medic in timpul programarii
 
 - Sistem contul meu:
-- sistem informatii despre mine
-- sistem modificare informatii
+- sistem informatii despre mine V
+- sistem modificare informatii V

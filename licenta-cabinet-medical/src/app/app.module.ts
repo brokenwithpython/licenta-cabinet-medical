@@ -23,6 +23,7 @@ import { SelectMedicAndHourComponent } from './select-medic-and-hour/select-medi
 import { AuthInterceptor } from './auth/auth-interceptor';
 import { CalendarDialogComponent } from './calendar/calendar-dialog/calendar-dialog.component';
 import { MyAccountComponent } from './my-account/my-account.component';
+import { SelectHourDialogComponent } from './select-medic-and-hour/select-hour-dialog/select-hour-dialog.component';
 
 
 @NgModule({
@@ -35,7 +36,8 @@ import { MyAccountComponent } from './my-account/my-account.component';
     CalendarComponent,
     SelectMedicAndHourComponent,
     CalendarDialogComponent,
-    MyAccountComponent
+    MyAccountComponent,
+    SelectHourDialogComponent
 
   ],
   imports: [
@@ -51,7 +53,7 @@ import { MyAccountComponent } from './my-account/my-account.component';
                 { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
 ],
   bootstrap: [AppComponent],
-  entryComponents: [CalendarDialogComponent]
+  entryComponents: [CalendarDialogComponent, SelectHourDialogComponent]
 })
 export class AppModule { }
 

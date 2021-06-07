@@ -6,6 +6,7 @@
 
 mat-card {
   background-color: #f8f8f8;
+  cursor: pointer;
   /* width: 400px; */
   /* height: 300px; */
   /* padding: 0 20px 0; */
@@ -49,6 +50,16 @@ img {
   color: #ffff;
 }
 
+.button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .item {
   width: auto;
+}
+
+#selectHour {
+  margin-bottom: 10px;
 }

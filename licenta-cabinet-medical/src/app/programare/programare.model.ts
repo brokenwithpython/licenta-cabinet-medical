@@ -1,5 +1,6 @@
 export interface Schedule {
-  dateAndHour: string;
+  date: string;
+  hour: string
   address: string;
   problem: string;
   medicId: string;

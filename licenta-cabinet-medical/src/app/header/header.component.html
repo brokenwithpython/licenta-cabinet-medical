@@ -31,11 +31,11 @@
             <li routerLinkActive="active" *ngIf="!userIsAuthenticated"><a routerLink="/selectare">Despre Noi</a></li>
 
 
-            <li routerLinkActive="active" *ngIf="userIsAuthenticated && !this.authService.getIsMedicAuth()"><a routerLink="/selectare">Contul Meu</a></li>
+            <li routerLinkActive="active" *ngIf="userIsAuthenticated && !this.authService.getIsMedicAuth()"><a routerLink="/my-account">Contul Meu</a></li>
             <li routerLinkActive="active" *ngIf="userIsAuthenticated && !this.authService.getIsMedicAuth()"><a routerLink="/selectare">Istoric Programari</a></li>
             <li routerLinkActive="active" *ngIf="userIsAuthenticated && !this.authService.getIsMedicAuth()"><a routerLink="/programare">Programare</a></li>
             <li routerLinkActive="active" *ngIf="userIsAuthenticated && this.authService.getIsMedicAuth()"><a routerLink="/selectare">Gestionare Programari</a></li>
-            <li routerLinkActive="active" *ngIf="userIsAuthenticated && this.authService.getIsMedicAuth()"><a routerLink="/selectare">Contul Meu</a></li>
+            <li routerLinkActive="active" *ngIf="userIsAuthenticated && this.authService.getIsMedicAuth()"><a routerLink="/my-account">Contul Meu</a></li>
             <li routerLinkActive="active" *ngIf="!userIsAuthenticated"><a routerLink="/auth/login">Intra in cont</a></li>
             <li routerLinkActive="active" *ngIf="userIsAuthenticated"><a routerLink="/" (click)="onLogout()">Deconectare</a></li>
           </ul>

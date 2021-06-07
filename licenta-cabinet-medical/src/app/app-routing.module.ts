@@ -5,6 +5,7 @@ import { LoginComponent } from "./auth/login/login.component";
 import { MainScreenComponent } from "./main-screen/main-screen.component";
 import { MyAccountComponent } from "./my-account/my-account.component";
 import { ProgramareComponent } from "./programare/programare.component";
+import { UserScheduleComponent } from "./programare/usersSchedule/user-schedule.component";
 import { SelectMedicAndHourComponent } from "./select-medic-and-hour/select-medic-and-hour.component";
 
 
@@ -15,6 +16,7 @@ const appRoutes: Routes = [
   {path: 'programare', component: ProgramareComponent},
   {path: 'selectare', component: SelectMedicAndHourComponent},
   {path: 'my-account', component: MyAccountComponent},
+  {path: 'schedules', component: UserScheduleComponent},
   {path: '**', redirectTo: '/home'}
 ];
 

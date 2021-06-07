@@ -30,6 +30,40 @@ exports.createSchedule = (req, res, next) => {
   });
 };
 
+exports.getSchedulesForUsers = (req, res, next) => {
+  Schedule.find().then(scheduleDoc => {
+    usersSchedules = scheduleDoc.filter(schedule => {
+      return schedule.userId.toString() === req.query.userId.toString()
+    })
+    res.status(200).json({
+      message: "Toate programarile",
+      schedules: usersSchedules
+    });
+  }).catch(err => {
+    res.status(404).json({
+      message: "Eroare",
+      err: err
+    });
+  });
+}
+
+exports.getSchedulesForMedics = (req, res, next) => {
+  Schedule.find().then(scheduleDoc => {
+    medicsSchedules = scheduleDoc.filter(schedule => {
+      return schedule.medicId.toString() === req.query.medicId.toString()
+    })
+    res.status(200).json({
+      message: "Toate programarile",
+      schedules: medicsSchedules
+    });
+  }).catch(err => {
+    res.status(404).json({
+      message: "Eroare",
+      err: err
+    });
+  });
+}
+
 exports.getMedicsAndDate = (req, res, next) => {
   let options = [];
   let index = 0;
@@ -44,7 +78,7 @@ exports.getMedicsAndDate = (req, res, next) => {
         judetDec = cryptoJs.AES.decrypt(doc.county, process.env.PASSPHRASE_AES).toString(cryptoJs.enc.Utf8);
         hours = [];
         for(let scDoc of scheduleDocuments) {
-          if (doc._id.toString() === scDoc.medicId.toString() &&  finalDate === scDoc.date) {
+          if (doc.userCreator.toString() === scDoc.medicId.toString() &&  finalDate === scDoc.date) {
             hours.push(scDoc.hour);
           }
         }
@@ -57,7 +91,7 @@ exports.getMedicsAndDate = (req, res, next) => {
               judet: judetDec,
               specialization: specializationDec,
               hoursToExclude: hours,
-              medicId: doc._id,
+              medicId: doc.userCreator,
               cardId: index
             };
             index++;
@@ -71,7 +105,7 @@ exports.getMedicsAndDate = (req, res, next) => {
             judet: judetDec,
             specialization: specializationDec,
             hoursToExclude: hours,
-            medicId: doc._id,
+            medicId: doc.userCreator,
             cardId: index
           };
           index++;
@@ -79,7 +113,7 @@ exports.getMedicsAndDate = (req, res, next) => {
         }
       }
       res.status(200).json({
-        message: "Toate programarile",
+        message: "Toate optiunile pentru programare!",
         options: options
       });
       }).catch(error => {

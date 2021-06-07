@@ -10,6 +10,5 @@ const scheduleSchema = mongoose.Schema({
   userId: {type: mongoose.Schema.Types.ObjectId, ref: "User", required: true}
 });
 
-// scheduleSchema.plugin(uniqueValidator);
 
 module.exports = mongoose.model('Schedule', scheduleSchema);

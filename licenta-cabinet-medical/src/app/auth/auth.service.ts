@@ -100,7 +100,6 @@ export class AuthService {
       backendApiLink = BACKEND_URL;
     }
     const queryParams = `?userId=${this.getUserId()}`;
-    console.log(queryParams);
     this.http.get<{message: string, personalData: []}>(backendApiLink + 'getPersonalInfo/' + queryParams)
       .subscribe(res => {
         this.retriveInfosListner.next(res.personalData);

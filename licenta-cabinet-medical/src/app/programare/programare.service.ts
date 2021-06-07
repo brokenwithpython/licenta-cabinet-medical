@@ -2,6 +2,7 @@ import { HttpClient } from "@angular/common/http";
 import { stringify } from "@angular/compiler/src/util";
 import { Injectable } from "@angular/core";
 import { Data, Router } from "@angular/router";
+import { Subject } from "rxjs";
 import { environment } from "src/environments/environment";
 import { AuthService } from "../auth/auth.service";
 import { Schedule } from "./programare.model";
@@ -15,6 +16,7 @@ const BACKEND_URL = environment.apiUrl + 'schedule/';
 export class ProgramareService {
 
   scheduleOptions = [];
+  private allSchedulesListner = new Subject();
 
   constructor(private http: HttpClient, private router: Router, private authService: AuthService) {}
 
@@ -112,9 +114,32 @@ export class ProgramareService {
           }
         }
         medic.finalHours = tempHours;
+        tempHours = [...this.oreDeLucru];
       });
       this.router.navigate(['/selectare']);
     })
+  }
+
+  getUserSchedules() {
+    const queryParams = `?userId=${this.authService.getUserId()}`;
+    this.http.get<{message: string, schedules: []}>(BACKEND_URL + '/user/my-schedules/' + queryParams).subscribe(res => {
+      this.allSchedulesListner.next(res.schedules);
+      return res.schedules;
+    });
+  }
+
+  getMedicSchedules() {
+    if(this.authService.getIsMedicAuth()) {
+      const queryParams = `?medicId=${this.authService.getUserId()}`;
+      this.http.get<{message: string, schedules: []}>(BACKEND_URL + '/medic/my-schedules/' + queryParams).subscribe(res => {
+        this.allSchedulesListner.next(res.schedules);
+        return res.schedules;
+    });
+    }
+  }
+
+  getAllScheduleListner() {
+    return this.allSchedulesListner.asObservable();
   }
 
   getScheduleOptions() {

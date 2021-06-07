@@ -27,7 +27,7 @@ jspdf
 Task-uri:
 
 - Autentificare:
-  - autentificare ca medic
+  - autentificare ca medic v
   - autentificare ca pacient V
   - ai uitat parola
   - mail confirmare cont
@@ -38,12 +38,13 @@ Task-uri:
   - design pagina home - autentificat
 
 - Programare:
-  - design pagina programare
-  - backend programare
+  - design pagina programare VX
+  - backend programare V
   - backend editare programare
   - backend stergere programare
+  - sistem vizualizare programari
+  - sistem gestiune programari
 
-- sistem gestiune programari
 - Sistem vizualizare informatii scrise de medic
 - sistem vizualizare informatii scrise de medic in timpul programarii
 

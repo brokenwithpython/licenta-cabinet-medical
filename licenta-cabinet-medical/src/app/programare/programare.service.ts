@@ -17,6 +17,7 @@ export class ProgramareService {
 
   scheduleOptions = [];
   private allSchedulesListner = new Subject();
+  userSchedules = [];
 
   constructor(private http: HttpClient, private router: Router, private authService: AuthService) {}
 
@@ -123,22 +124,41 @@ export class ProgramareService {
     })
   }
 
+  putInfoSchedule(schedule) {
+    this.http.put(BACKEND_URL + 'add-info/', schedule).subscribe(result => {
+      console.log(result);
+    });
+  }
+
   getUserSchedules() {
     const queryParams = `?userId=${this.authService.getUserId()}`;
-    this.http.get<{message: string, schedules: []}>(BACKEND_URL + '/user/my-schedules/' + queryParams).subscribe(res => {
-      this.allSchedulesListner.next(res.schedules);
-      return res.schedules;
+    this.http.get<{message: string, schedules: []}>(BACKEND_URL + 'user/my-schedules/' + queryParams).subscribe(res => {
+      this.scheduleOptions = res.schedules;
+      this.allSchedulesListner.next(this.scheduleOptions);
+      return this.scheduleOptions;
     });
   }
 
   getMedicSchedules() {
     if(this.authService.getIsMedicAuth()) {
       const queryParams = `?medicId=${this.authService.getUserId()}`;
-      this.http.get<{message: string, schedules: []}>(BACKEND_URL + '/medic/my-schedules/' + queryParams).subscribe(res => {
-        this.allSchedulesListner.next(res.schedules);
-        return res.schedules;
+      this.http.get<{message: string, schedules: []}>(BACKEND_URL + 'medic/my-schedules/' + queryParams).subscribe(res => {
+        this.scheduleOptions = res.schedules;
+        this.allSchedulesListner.next(this.scheduleOptions);
+        return this.scheduleOptions;
     });
     }
+  }
+
+  deleteSchedule(schedule) {
+    const queryParamns = `?scheduleId=${schedule._id}`;
+    this.http.delete(BACKEND_URL + 'delete-schedule/' + queryParamns).subscribe(res => {
+      if(!this.authService.getIsMedicAuth()) {
+        this.allSchedulesListner.next(this.getUserSchedules());
+      } else {
+        this.allSchedulesListner.next(this.getMedicSchedules());
+      }
+    });
   }
 
   getAllScheduleListner() {

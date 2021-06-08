@@ -38,12 +38,12 @@ Task-uri:
   - design pagina home - autentificat
 
 - Programare:
-  - design pagina programare V
+  - design pagina programare VX
   - backend programare V
-  - backend editare programare
-  - backend stergere programare
+  - backend editare programare V
+  - backend stergere programare V
   - sistem vizualizare programari V
-  - sistem gestiune programari VX
+  - sistem gestiune programari V
 
 - Sistem vizualizare informatii scrise de medic
 - sistem vizualizare informatii scrise de medic in timpul programarii

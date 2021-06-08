@@ -32,6 +32,27 @@ exports.createSchedule = (req, res, next) => {
   });
 };
 
+exports.addInfoForSchedule = (req, res, next) => {
+  noteEnc = cryptoJs.AES.encrypt(req.body.note, process.env.PASSPHRASE_AES).toString();
+  contraindicatiiEnc = cryptoJs.AES.encrypt(req.body.contraindicatii, process.env.PASSPHRASE_AES).toString();
+  indicatiiEnc = cryptoJs.AES.encrypt(req.body.indicatii, process.env.PASSPHRASE_AES).toString();
+
+  Schedule.updateOne({_id: req.body._id}, {
+    note: noteEnc,
+    contraindicatii: contraindicatiiEnc,
+    indicatii: indicatiiEnc
+  }).then(result => {
+    res.status(201).json({
+      text: "Am adaugat informatiile cu succes!",
+      output: result
+    });
+  }).catch(err => {
+    res.status(500).json({
+      message: err
+    });
+  })
+}
+
 exports.getSchedulesForUsers = (req, res, next) => {
   let scheduleRespone = [];
   medics = Medics.find();
@@ -46,6 +67,10 @@ exports.getSchedulesForUsers = (req, res, next) => {
         medics.forEach(medic => {
           if (medic.userCreator.toString() === schedule.medicId.toString()) {
             phoneNumberDec = cryptoJs.AES.decrypt(medic.phoneNumber, process.env.PASSPHRASE_AES).toString(cryptoJs.enc.Utf8);
+            noteDec = cryptoJs.AES.decrypt(schedule.note, process.env.PASSPHRASE_AES).toString(cryptoJs.enc.Utf8);
+            contraindicatiiDec = cryptoJs.AES.decrypt(schedule.contraindicatii, process.env.PASSPHRASE_AES).toString(cryptoJs.enc.Utf8);
+            indicatiiDec = cryptoJs.AES.decrypt(schedule.indicatii, process.env.PASSPHRASE_AES).toString(cryptoJs.enc.Utf8);
+
             scheduleRespone.push({
               _id : schedule._id,
               date: schedule.date,
@@ -54,6 +79,9 @@ exports.getSchedulesForUsers = (req, res, next) => {
               problem: schedule.problem,
               medicId: schedule.medicId,
               userId: schedule.userId,
+              note: noteDec,
+              contraindicatii: contraindicatiiDec,
+              indicatii: indicatiiDec,
               onlineSchedule: schedule.onlineSchedule,
               medicName: medic.lastName + " " + medic.firstName,
               phoneNumber: phoneNumberDec,
@@ -86,7 +114,12 @@ exports.getSchedulesForMedics = (req, res, next) => {
       medicsSchedules.forEach(schedule => {
         users.forEach(user => {
           if(user.userCreator.toString() === schedule.userId.toString()){
+            console.log(schedule.note);
             phoneNumberDec = cryptoJs.AES.decrypt(user.phoneNumber, process.env.PASSPHRASE_AES).toString(cryptoJs.enc.Utf8);
+            noteDec = cryptoJs.AES.decrypt(schedule.note, process.env.PASSPHRASE_AES).toString(cryptoJs.enc.Utf8);
+            contraindicatiiDec = cryptoJs.AES.decrypt(schedule.contraindicatii, process.env.PASSPHRASE_AES).toString(cryptoJs.enc.Utf8);
+            indicatiiDec = cryptoJs.AES.decrypt(schedule.indicatii, process.env.PASSPHRASE_AES).toString(cryptoJs.enc.Utf8);
+            console.log(noteDec);
             scheduleResponse.push({
               _id : schedule._id,
               date: schedule.date,
@@ -95,6 +128,9 @@ exports.getSchedulesForMedics = (req, res, next) => {
               problem: schedule.problem,
               medicId: schedule.medicId,
               userId: schedule.userId,
+              note: noteDec,
+              contraindicatii: contraindicatiiDec,
+              indicatii: indicatiiDec,
               onlineSchedule: schedule.onlineSchedule,
               userName: user.lastName + " " + user.firstName,
               phoneNumber: phoneNumberDec,
@@ -114,6 +150,12 @@ exports.getSchedulesForMedics = (req, res, next) => {
       message: "Eroare",
       err: err
     });
+  });
+}
+
+exports.deleteSchedule = (req, res, next) => {
+  Schedule.deleteOne({_id: req.query.scheduleId}).then(response => {
+    console.log(response);
   });
 }
 

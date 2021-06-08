@@ -1,4 +1,7 @@
-
+.mat-button{
+  background-color: #0190B0;
+  color: #ffff;
+}
 .example-headers-align .mat-expansion-panel-header-title,
 .example-headers-align .mat-expansion-panel-header-description {
   flex-basis: 0;
@@ -12,6 +15,10 @@
 
 .example-headers-align .mat-form-field + .mat-form-field {
   margin-left: 200px;
+}
+
+mat-spinner {
+  margin: auto
 }
 
 
@@ -35,19 +42,7 @@ mat-panel-title {
   justify-content: center;
 }
 
-.info {
-  display: grid;
-}
 
-.column {
-  /* display: ; */
-}
+@media screen and (max-width: 1000px){
 
-.left {
-  display: inline-grid;
 }
-.right {
-  width: 50%;
-  margin-left: 20px;
-}
-

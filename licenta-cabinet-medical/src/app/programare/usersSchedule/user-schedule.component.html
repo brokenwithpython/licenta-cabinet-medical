@@ -1,5 +1,5 @@
-
-<mat-accordion class="example-headers-align" multi>
+<mat-spinner *ngIf="isLoading"></mat-spinner>
+<mat-accordion class="example-headers-align" multi *ngIf="!isLoading">
   <mat-expansion-panel
   (opened)="panelOpenState = true"
   (closed)="panelOpenState = false"
@@ -14,7 +14,7 @@
 
       <mat-panel-description>
         <div class="problema" *ngIf="this.authService.getIsMedicAuth()">
-          <h4>Pacient: {{schedule.userName}}</h4>
+          <h4>{{schedule.userName}}</h4>
         </div>
         <div class="problema" *ngIf="!this.authService.getIsMedicAuth()">
           <h4>Dr: {{schedule.medicName}}</h4>
@@ -29,5 +29,17 @@
     <h4>Localitate: {{schedule.address}}</h4>
     <h4>Numar de telefon: {{schedule.phoneNumber}}</h4>
     <h4>Email: {{schedule.email}}</h4>
+  <hr/>
+    <h4 *ngIf="schedule.note !== ''">Note programare: {{schedule.note}}</h4>
+    <h4 *ngIf="schedule.contraindicatii !== ''">Contraindicatii: {{schedule.contraindicatii}}</h4>
+    <h4 *ngIf="schedule.indicatii !== ''">Indicatii: {{schedule.indicatii}}</h4>
+    <mat-action-row *ngIf="!this.authService.getIsMedicAuth()">
+      <button mat-raised-button color="warn" (click)="deleteSchedule(schedule)">Sterge</button>
+      <button mat-button (click)="editSchedule(schedule)">Editeaza</button>
+    </mat-action-row>
+    <mat-action-row *ngIf="this.authService.getIsMedicAuth()">
+      <button mat-raised-button color="warn" (click)="deleteSchedule(schedule)">Anuleaza</button>
+      <button mat-button (click)="editScheduleInfo(schedule)">Editeaza</button>
+    </mat-action-row>
   </mat-expansion-panel>
 </mat-accordion>

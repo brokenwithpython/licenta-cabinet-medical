@@ -1,0 +1,53 @@
+<form [formGroup]="form" (submit)="onSignup(signupForm)" #signupForm="ngForm">
+  <div class="note">
+    <p>Note despre consultatii:</p>
+  </div>
+  <mat-form-field appearance="outline">
+    <mat-label>Note consultatie</mat-label>
+    <textarea
+      matInput
+      placeholder="Durata tratamentului ..."
+      type="text"
+      name="note"
+      [formControlName] = "'note'"
+    ></textarea>
+  </mat-form-field>
+  <div class="note">
+    <p>Contraindicatii:</p>
+  </div>
+  <mat-form-field appearance="outline">
+    <mat-label>Contraindicatii</mat-label>
+    <textarea
+      matInput
+      placeholder="Nu faceti ..."
+      type="text"
+      name="contraindicatii"
+      [formControlName] = "'contraindicatii'"
+    ></textarea>
+  </mat-form-field>
+  <div class="note">
+    <p>Indicatii:</p>
+  </div>
+  <mat-form-field appearance="outline">
+    <mat-label>Indicatii</mat-label>
+    <textarea
+      matInput
+      placeholder="Ar fi bine sa ..."
+      type="text"
+      name="indicatii"
+      [formControlName] = "'indicatii'"
+    ></textarea>
+  </mat-form-field>
+
+  <mat-dialog-actions>
+    <button mat-raised-button color="warn" [mat-dialog-close]="[false]">Inchide</button>
+    <button
+      mat-button
+      [mat-dialog-close]="[
+        true,
+        this.form.get('note').value,
+        this.form.get('contraindicatii').value,
+        this.form.get('indicatii').value]">Salveaza</button>
+  </mat-dialog-actions>
+</form>
+

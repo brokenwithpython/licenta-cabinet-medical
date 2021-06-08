@@ -25,6 +25,9 @@ import { CalendarDialogComponent } from './calendar/calendar-dialog/calendar-dia
 import { MyAccountComponent } from './my-account/my-account.component';
 import { SelectHourDialogComponent } from './select-medic-and-hour/select-hour-dialog/select-hour-dialog.component';
 import { UserScheduleComponent } from './programare/usersSchedule/user-schedule.component';
+import { ProgramareDialogComponent } from './programare/programareDialog/programare-dialog.component';
+import { EditProgDialogComponent } from './programare/programareEditareMedicDialog/editProgMedic.component';
+import { EditAddInfoScheduleComponent } from './programare/editare-adaugare-info-programare/edit-add-info-schedule.component';
 
 
 @NgModule({
@@ -39,7 +42,11 @@ import { UserScheduleComponent } from './programare/usersSchedule/user-schedule.
     CalendarDialogComponent,
     MyAccountComponent,
     SelectHourDialogComponent,
-    UserScheduleComponent
+    UserScheduleComponent,
+    ProgramareDialogComponent,
+    EditProgDialogComponent,
+    EditProgDialogComponent,
+    EditAddInfoScheduleComponent
 
   ],
   imports: [
@@ -55,7 +62,8 @@ import { UserScheduleComponent } from './programare/usersSchedule/user-schedule.
                 { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
 ],
   bootstrap: [AppComponent],
-  entryComponents: [CalendarDialogComponent, SelectHourDialogComponent]
+  entryComponents: [CalendarDialogComponent, SelectHourDialogComponent,
+     ProgramareDialogComponent, EditProgDialogComponent, EditAddInfoScheduleComponent]
 })
 export class AppModule { }
 

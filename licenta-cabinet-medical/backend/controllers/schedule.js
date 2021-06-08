@@ -5,18 +5,19 @@ const cryptoJs = require('crypto-js');
 // const medic = require('../models/medic');
 
 exports.createSchedule = (req, res, next) => {
-  console.log(req.body);
   const schedule = new Schedule({
     date: req.body.date,
     hour: req.body.hour,
     address: req.body.address,
     problem: req.body.problem,
     onlineSchedule: req.body.onlineSchedule,
+    note: '',
+    contraindicatii: '',
+    indicatii: '',
     medicId: req.body.medicId,
     userId: req.userData.userId
   });
   schedule.save().then(createdSchedule => {
-    console.log(createdSchedule);
     res.status(201).json({
       message:"Schedule created successfully!",
       post: {
@@ -25,7 +26,6 @@ exports.createSchedule = (req, res, next) => {
       }
     });
   }).catch(error => {
-    console.log(error);
     res.status(500).json({
       message: error
     });
@@ -63,9 +63,8 @@ exports.getSchedulesForUsers = (req, res, next) => {
 
     Medics.find().then(medics => {
     usersSchedules.forEach(schedule => {
-        // console.log(schedule.medicId);
-        medics.forEach(medic => {
-          if (medic.userCreator.toString() === schedule.medicId.toString()) {
+      medics.forEach(medic => {
+        if (medic.userCreator.toString() === schedule.medicId.toString()) {
             phoneNumberDec = cryptoJs.AES.decrypt(medic.phoneNumber, process.env.PASSPHRASE_AES).toString(cryptoJs.enc.Utf8);
             noteDec = cryptoJs.AES.decrypt(schedule.note, process.env.PASSPHRASE_AES).toString(cryptoJs.enc.Utf8);
             contraindicatiiDec = cryptoJs.AES.decrypt(schedule.contraindicatii, process.env.PASSPHRASE_AES).toString(cryptoJs.enc.Utf8);
@@ -114,12 +113,10 @@ exports.getSchedulesForMedics = (req, res, next) => {
       medicsSchedules.forEach(schedule => {
         users.forEach(user => {
           if(user.userCreator.toString() === schedule.userId.toString()){
-            console.log(schedule.note);
             phoneNumberDec = cryptoJs.AES.decrypt(user.phoneNumber, process.env.PASSPHRASE_AES).toString(cryptoJs.enc.Utf8);
             noteDec = cryptoJs.AES.decrypt(schedule.note, process.env.PASSPHRASE_AES).toString(cryptoJs.enc.Utf8);
             contraindicatiiDec = cryptoJs.AES.decrypt(schedule.contraindicatii, process.env.PASSPHRASE_AES).toString(cryptoJs.enc.Utf8);
             indicatiiDec = cryptoJs.AES.decrypt(schedule.indicatii, process.env.PASSPHRASE_AES).toString(cryptoJs.enc.Utf8);
-            console.log(noteDec);
             scheduleResponse.push({
               _id : schedule._id,
               date: schedule.date,
@@ -155,7 +152,6 @@ exports.getSchedulesForMedics = (req, res, next) => {
 
 exports.deleteSchedule = (req, res, next) => {
   Schedule.deleteOne({_id: req.query.scheduleId}).then(response => {
-    console.log(response);
   });
 }
 
@@ -165,7 +161,6 @@ exports.getMedicsAndDate = (req, res, next) => {
   finalDate = new Date(req.query.date);
   finalDate =  finalDate.getDate().toString() + ' ' +
               (finalDate.getMonth()+1).toString() + ' ' +  finalDate.getFullYear().toString();
-  // console.log(finalDate)
   medicDocuments = Medics.find().then(medicDocuments => {
     scheduleDocuments = Schedule.find().then( scheduleDocuments => {
       for(let doc of medicDocuments) {

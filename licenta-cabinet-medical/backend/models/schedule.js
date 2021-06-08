@@ -6,6 +6,7 @@ const scheduleSchema = mongoose.Schema({
   hour: {type: String, required: true},
   address: {type: String, required: true},
   problem: {type: String, required: true},
+  onlineSchedule: {type: Boolean, required: true},
   medicId: {type: mongoose.Schema.Types.ObjectId, ref: "Medic", required: true},
   userId: {type: mongoose.Schema.Types.ObjectId, ref: "User", required: true}
 });

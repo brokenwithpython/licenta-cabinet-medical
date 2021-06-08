@@ -86,11 +86,13 @@ export class ProgramareService {
   ].sort();
 
   addSchedule(medic) {
+    // console.log(medic.online)
     const scheduleData: Schedule = {
       date: medic.date,
       hour: medic.ora,
       address: medic.address,
       problem: medic.specialization,
+      onlineSchedule: medic.onlineSchedule,
       medicId: medic.medicId,
       userId: this.authService.getUserId()
   };
@@ -114,6 +116,7 @@ export class ProgramareService {
           }
         }
         medic.finalHours = tempHours;
+        medic.onlineSchedule = consultatieOnline;
         tempHours = [...this.oreDeLucru];
       });
       this.router.navigate(['/selectare']);

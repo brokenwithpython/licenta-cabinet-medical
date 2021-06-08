@@ -1,14 +1,33 @@
 
 <mat-accordion class="example-headers-align" multi>
-  <mat-expansion-panel *ngFor="let schedule of this.schedules">
+  <mat-expansion-panel
+  (opened)="panelOpenState = true"
+  (closed)="panelOpenState = false"
+    id="panelSchedule-{{schedule._id}}"
+    (click)="designPanel(schedule)"
+    *ngFor="let schedule of this.schedules">
+
     <mat-expansion-panel-header>
       <mat-panel-title>
-        {{schedule.date}}
+        <h4>{{schedule.problem}}</h4>
       </mat-panel-title>
-      <mat-panel-description>
 
+      <mat-panel-description>
+        <div class="problema" *ngIf="this.authService.getIsMedicAuth()">
+          <h4>Pacient: {{schedule.userName}}</h4>
+        </div>
+        <div class="problema" *ngIf="!this.authService.getIsMedicAuth()">
+          <h4>Dr: {{schedule.medicName}}</h4>
+        </div>
+        <br>
         <mat-icon>date_range</mat-icon>
       </mat-panel-description>
     </mat-expansion-panel-header>
+    <h4>Data: {{schedule.date}}</h4> <h4>Ora: {{schedule.hour}}</h4>
+    <h4>Programare online: {{schedule.onlineSchedule ? "Da" : "Nu"}}</h4>
+    <h4>Problema: {{schedule.problem}}</h4>
+    <h4>Localitate: {{schedule.address}}</h4>
+    <h4>Numar de telefon: {{schedule.phoneNumber}}</h4>
+    <h4>Email: {{schedule.email}}</h4>
   </mat-expansion-panel>
 </mat-accordion>

@@ -3,6 +3,7 @@ export interface Schedule {
   hour: string
   address: string;
   problem: string;
+  onlineSchedule: boolean;
   medicId: string;
   userId: string;
 }

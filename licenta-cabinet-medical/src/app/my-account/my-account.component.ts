@@ -11,7 +11,7 @@ import { ProgramareService } from "../programare/programare.service";
 })
 export class MyAccountComponent implements OnInit, OnDestroy{
 
-  constructor(private authService: AuthService, public programareService: ProgramareService) {
+  constructor(public authService: AuthService, public programareService: ProgramareService) {
     this.form = new FormGroup({
       firstName: new FormControl(null),
       lastName:  new FormControl(null),

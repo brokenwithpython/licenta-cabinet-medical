@@ -104,4 +104,13 @@ img {
   #img {
     width: auto;
   }
+
+  .card {
+    padding-bottom: 40px;
+  }
+
+  .matCardClass {
+    height: 950px;
+    margin-bottom: 40px;
+  }
 }

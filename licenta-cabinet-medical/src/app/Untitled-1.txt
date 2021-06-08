@@ -38,16 +38,21 @@ Task-uri:
   - design pagina home - autentificat
 
 - Programare:
-  - design pagina programare VX
+  - design pagina programare V
   - backend programare V
   - backend editare programare
   - backend stergere programare
-  - sistem vizualizare programari
-  - sistem gestiune programari
+  - sistem vizualizare programari V
+  - sistem gestiune programari VX
 
 - Sistem vizualizare informatii scrise de medic
 - sistem vizualizare informatii scrise de medic in timpul programarii
+- sistem chat medic/pacient ?
+- bara jos pacienti ???
 
 - Sistem contul meu:
 - sistem informatii despre mine V
 - sistem modificare informatii V
+
+
+

@@ -1,4 +1,4 @@
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { stringify } from "@angular/compiler/src/util";
 import { Injectable } from "@angular/core";
 import { Data, Router } from "@angular/router";
@@ -6,6 +6,7 @@ import { Subject } from "rxjs";
 import { environment } from "src/environments/environment";
 import { AuthService } from "../auth/auth.service";
 import { Schedule } from "./programare.model";
+import {saveAs} from "file-saver";
 
 const BACKEND_URL = environment.apiUrl + 'schedule/';
 
@@ -103,6 +104,16 @@ export class ProgramareService {
       })
   }
 
+  addPdfToSchedule(pdf, id) {
+    const postPDF = new FormData();
+    postPDF.append("pdf", pdf, pdf.name.split('.pdf')[0] + '-' + id);
+    postPDF.append("id", id);
+
+    this.http.post(environment.apiUrl + 'documents/uploadPdf', postPDF).subscribe(response => {
+      // console.log(response);
+    })
+  }
+
   getSchedulingVariants(problema: string, judet: string, date: Date, consultatieOnline: boolean) {
     const queryParams = `?problema=${problema}&judet=${judet}&date=${date}&consultatieOnline=${consultatieOnline}`;
     let tempHours = [...this.oreDeLucru];
@@ -134,8 +145,36 @@ export class ProgramareService {
     const queryParams = `?userId=${this.authService.getUserId()}`;
     this.http.get<{message: string, schedules: []}>(BACKEND_URL + 'user/my-schedules/' + queryParams).subscribe(res => {
       this.scheduleOptions = res.schedules;
-      this.allSchedulesListner.next(this.scheduleOptions);
-      return this.scheduleOptions;
+      let finalObject = {};
+      let finalSchedules = []
+      let fileNames = []
+      this.scheduleOptions.forEach(schedule => {
+
+        schedule.pdfPaths.forEach(path => {
+          fileNames.push(path.split('pdfFiles/')[1].split('-')[0] + '.pdf');
+          // schedule.filesName.push(path.split('pdfFiles/')[1].split('-')[0] + '.pdf');
+        });
+        finalObject = {
+          ...schedule,
+          fileNames: fileNames
+        };
+        fileNames = [];
+        finalSchedules.push(finalObject);
+      })
+      this.allSchedulesListner.next(finalSchedules);
+      return finalSchedules;
+    });
+  }
+
+  downloadPdf(filePath) {
+    // console.log(environment.apiUrl)
+    const queryParams = `?filePath=${filePath}`;
+
+    this.http.get(environment.apiUrl + 'documents/downloadPdf/' + queryParams,{
+      responseType: 'blob',
+      headers: new HttpHeaders().append('Content-Type', 'application/pdf')
+    }).subscribe(file => {
+      saveAs(file, filePath);
     });
   }
 
@@ -144,9 +183,25 @@ export class ProgramareService {
       const queryParams = `?medicId=${this.authService.getUserId()}`;
       this.http.get<{message: string, schedules: []}>(BACKEND_URL + 'medic/my-schedules/' + queryParams).subscribe(res => {
         this.scheduleOptions = res.schedules;
-        this.allSchedulesListner.next(this.scheduleOptions);
-        return this.scheduleOptions;
-    });
+        let finalObject = {};
+        let finalSchedules = []
+        let fileNames = []
+        this.scheduleOptions.forEach(schedule => {
+
+          schedule.pdfPaths.forEach(path => {
+            fileNames.push(path.split('pdfFiles/')[1].split('-')[0] + '.pdf');
+            // schedule.filesName.push(path.split('pdfFiles/')[1].split('-')[0] + '.pdf');
+          });
+          finalObject = {
+            ...schedule,
+            fileNames: fileNames
+          };
+          fileNames = [];
+          finalSchedules.push(finalObject);
+        })
+        this.allSchedulesListner.next(finalSchedules);
+        return finalSchedules;
+      });
     }
   }
 

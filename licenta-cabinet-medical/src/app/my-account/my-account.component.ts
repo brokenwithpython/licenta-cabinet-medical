@@ -1,8 +1,11 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
+import { MatDialog } from "@angular/material/dialog";
+import { DomSanitizer } from "@angular/platform-browser";
 import { Subscription } from "rxjs";
 import { AuthService } from "../auth/auth.service";
 import { ProgramareService } from "../programare/programare.service";
+import { UploadImageDialog } from "./uploadImageDialog/upload-image-dialog.component";
 
 @Component({
   selector: 'my-account',
@@ -11,7 +14,7 @@ import { ProgramareService } from "../programare/programare.service";
 })
 export class MyAccountComponent implements OnInit, OnDestroy{
 
-  constructor(public authService: AuthService, public programareService: ProgramareService) {
+  constructor(public authService: AuthService, public programareService: ProgramareService, public dialog: MatDialog, private sanitizer: DomSanitizer) {
     this.form = new FormGroup({
       firstName: new FormControl(null),
       lastName:  new FormControl(null),
@@ -23,9 +26,15 @@ export class MyAccountComponent implements OnInit, OnDestroy{
   }
   asd = false;
   private personalInfoSubs: Subscription;
+  private profileImageSubs: Subscription;
   isLoading = false;
   form: FormGroup;
-  personalData;
+  public personalData;
+  public imagePath = ''
+
+  public getSantizeUrl(url: string) {
+    return this.sanitizer.bypassSecurityTrustUrl(url);
+  }
 
 
   ngOnInit() {
@@ -33,13 +42,15 @@ export class MyAccountComponent implements OnInit, OnDestroy{
     this.personalData = this.authService.getPersonalData(this.authService.getIsMedicAuth());
     this.personalInfoSubs = this.authService.getInfosListner().subscribe(data => {
       this.personalData = data;
+      this.imagePath = this.personalData.imagePath;
+      // console.log(this.personalData.imagePath)
       this.form = new FormGroup({
-        firstName: new FormControl(this.personalData[4], {validators: [Validators.required, Validators.pattern('^[A-Za-z -]+$')]}),
-        lastName:  new FormControl(this.personalData[5], {validators: [Validators.required, Validators.pattern('^[A-Za-z -]+$')]}),
-        phoneNumber: new FormControl(this.personalData[0], {validators: [Validators.required, Validators.maxLength(12), Validators.minLength(10), Validators.pattern('^\s*[0-9+]+$')]}),
-        cnp: new FormControl(this.personalData[1], {validators: [Validators.required, Validators.maxLength(13), Validators.minLength(13), Validators.pattern('^[0-9]+$')]}),
-        county: new FormControl(this.personalData[2], {validators: [Validators.required]}),
-        address: new FormControl(this.personalData[3], {validators: [Validators.required]})
+        firstName: new FormControl(this.personalData.firstName, {validators: [Validators.required, Validators.pattern('^[A-Za-z -]+$')]}),
+        lastName:  new FormControl(this.personalData.lastName, {validators: [Validators.required, Validators.pattern('^[A-Za-z -]+$')]}),
+        phoneNumber: new FormControl(this.personalData.phoneNumber, {validators: [Validators.required, Validators.maxLength(12), Validators.minLength(10), Validators.pattern('^\s*[0-9+]+$')]}),
+        cnp: new FormControl(this.personalData.CNP, {validators: [Validators.required, Validators.maxLength(13), Validators.minLength(13), Validators.pattern('^[0-9]+$')]}),
+        county: new FormControl(this.personalData.county, {validators: [Validators.required]}),
+        address: new FormControl(this.personalData.address, {validators: [Validators.required]})
       });
       this.form.disable();
     });
@@ -49,6 +60,22 @@ export class MyAccountComponent implements OnInit, OnDestroy{
   onChange() {
 
   }
+
+  openDialogUpload() {
+    const dialogRef = this.dialog.open(UploadImageDialog, {
+      width: '325px',
+      data: {name: this.personalData[5] + ' ' + this.personalData[4]}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if(result) {
+        if(result[0]) {
+
+        }
+      }
+    });
+  }
+
 
   disableEditing() {
     this.asd = !this.asd;

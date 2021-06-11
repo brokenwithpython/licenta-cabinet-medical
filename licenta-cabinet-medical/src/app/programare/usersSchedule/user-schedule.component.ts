@@ -10,6 +10,10 @@ import { ProgramareDialogComponent } from "../programareDialog/programare-dialog
 import { Router } from "@angular/router";
 import { EditProgDialogComponent } from "../programareEditareMedicDialog/editProgMedic.component";
 import { EditAddInfoScheduleComponent } from "../editare-adaugare-info-programare/edit-add-info-schedule.component";
+import { FormControl, FormGroup } from "@angular/forms";
+import { FileSelectDirective , FileUploader } from "ng2-file-upload";
+import { environment } from "src/environments/environment";
+import { UploadPdfDialog } from "../uploadPdfDialog/uploadPdf-dialog.component";
 
 export interface IsPanelOpen {
   id: string;
@@ -24,21 +28,25 @@ export interface IsPanelOpen {
 export class UserScheduleComponent implements OnInit, OnDestroy{
   @ViewChild(MatExpansionPanel) panel: MatExpansionPanel;
 
-  constructor(private programareService: ProgramareService, public authService: AuthService, public dialog: MatDialog,
-              private router: Router) {  }
   isLoading = false;
   schedules;
   private schedulesSubs: Subscription;
   panelOpenState = false;
 
+  constructor(private programareService: ProgramareService, public authService: AuthService, public dialog: MatDialog, private router: Router) {}
 
   ngOnInit() {
+
     this.schedules = this.getUsersSchedules();
     this.schedulesSubs = this.programareService.getAllScheduleListner().subscribe(res => {
       this.schedules = res;
-      console.log(this.schedules);
+      // console.log(this.schedules);
       this.isLoading = false;
     })
+  }
+
+  downloadPdf(documentPath) {
+    this.programareService.downloadPdf(documentPath.split('http://localhost:3000/backend/pdfFiles/')[1]);
   }
 
   getUsersSchedules() {
@@ -123,6 +131,33 @@ export class UserScheduleComponent implements OnInit, OnDestroy{
         });
       }
     });
+  }
+
+  openDialogUpload(schedule) {
+    const dialogRef = this.dialog.open(UploadPdfDialog, {
+      width: '325px',
+      data: {name: schedule.userName,
+              id: schedule._id}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if(result) {
+        if(result[0]) {
+
+        }
+      }
+    });
+  }
+
+  onPdfPicked(event: Event) {
+    // const file = (event.target as HTMLInputElement).files[0];
+    // this.form.patchValue({image: file});
+    // this.form.get('pdf').updateValueAndValidity();
+    // const reader = new FileReader();
+    // reader.onload = () => {
+    //   this.pdfPreview = reader.result as string;
+    // };
+    // reader.readAsDataURL(file);
   }
 
 

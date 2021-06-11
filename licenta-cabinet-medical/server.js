@@ -1,6 +1,14 @@
 const app = require("./backend/app");
 const debug = require("debug")("node-angular");
 const http = require("http");
+const server = http.createServer(app);
+const { Server } = require("socket.io");
+const io = new Server(server, {
+  cors: {
+    origin: "http://localhost:4200",
+    methods: ["GET", "POST"]
+  }
+});
 
 const normalizePort = val => {
   var port = parseInt(val, 10);
@@ -44,9 +52,22 @@ const onListening = () => {
 };
 
 const port = normalizePort(process.env.PORT || "3000");
-app.set("port", port);
 
-const server = http.createServer(app);
+
+// io.on('connection', (socket) => {
+//   console.log('a user connected');
+//   socket.emit('test event', "Test emit backend");
+
+//   socket.on('chat message', (msg) => {
+//     io.emit('chat message', msg);
+//   });
+
+//   socket.on('disconnect', () => {
+//     console.log('user disconnected');
+//   });
+// });
+
+app.set("port", port);
 server.on("error", onError);
 server.on("listening", onListening);
 server.listen(port);

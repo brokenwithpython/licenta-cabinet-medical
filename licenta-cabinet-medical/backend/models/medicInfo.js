@@ -9,6 +9,7 @@ const medicSchema = mongoose.Schema({
   address: {type: String, required: true},
   specialization: {type: String, required: true},
   county: {type: String, required: true},
+  profileImage: {type: String},
   userCreator: {type: mongoose.Schema.Types.ObjectId, ref: "Medic", required: true}
 });
 

@@ -4,10 +4,10 @@ import { AuthData } from "./auth-data.model";
 import { HttpClient } from "@angular/common/http";
 import { Router } from "@angular/router";
 import { Subject } from "rxjs";
-import { stringify } from "@angular/compiler/src/util";
-import { ThrowStmt } from "@angular/compiler";
 import { UserInfo } from "./user-info.model";
 import { MedicInfo } from "./medic-info.model";
+import {saveAs} from "file-saver";
+
 
 
 
@@ -21,6 +21,7 @@ export class AuthService {
 
   private authStatusListner = new Subject<boolean>();
   private retriveInfosListner = new Subject();
+  private profileImageListner = new Subject();
   private token: string;
   private userId: string;
   private isMedic: string;
@@ -85,7 +86,7 @@ export class AuthService {
           const now = new Date();
           const expirationDate = new Date(now.getTime() + expiresInDuration * 1000);
           this.saveAuthData(token, expirationDate, this.userId, this.isMedic);
-          this.router.navigate(['/']);
+          this.router.navigate(['/chat']);
         }
       }, error => {
         this.authStatusListner.next(false);
@@ -132,6 +133,30 @@ export class AuthService {
 
   }
 
+  uploadProfilePhoto(file) {
+    let backendlink = BACKEND_URL;
+    if(this.getIsMedicAuth()) {
+      backendlink = BACKEND_URL_MEDIC
+    }
+    const postProfileImage = new FormData();
+    postProfileImage.append("image", file, file.name.split('.')[0] + '-' + this.getUserId());
+    postProfileImage.append("id", this.getUserId());
+    this.http.post(backendlink + 'uploadProfilePhoto', postProfileImage).subscribe((result) => {
+      console.log(result);
+    })
+
+  }
+
+  downloadProfilePhoto() {
+    const queryParam = `?userId=${this.getUserId()}`
+    this.http.get(BACKEND_URL + 'downloadPhoto' + queryParam, {
+      responseType: 'blob',
+    }).subscribe(file => {
+      let image = saveAs(file, 'profileImage.png');
+      this.profileImageListner.next(image);
+      return image;
+    })
+  }
   logout() {
     this.token = null;
     this.userId = null;
@@ -213,6 +238,10 @@ export class AuthService {
 
   getInfosListner() {
     return this.retriveInfosListner.asObservable();
+  }
+
+  getProfileImageListner() {
+    return this.profileImageListner.asObservable();
   }
 
   getUserId() {

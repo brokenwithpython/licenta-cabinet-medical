@@ -26,16 +26,7 @@ jspdf
 
 Task-uri:
 
-- Autentificare:
-  - autentificare ca medic v
-  - autentificare ca pacient V
-  - ai uitat parola
-  - mail confirmare cont
-  - schimba parola
 
-- Main screen:
-  - design pagina home - neautentificat
-  - design pagina home - autentificat
 
 - Programare:
   - design pagina programare VX
@@ -44,15 +35,33 @@ Task-uri:
   - backend stergere programare V
   - sistem vizualizare programari V
   - sistem gestiune programari V
-
-- Sistem vizualizare informatii scrise de medic
-- sistem vizualizare informatii scrise de medic in timpul programarii
-- sistem chat medic/pacient ?
-- bara jos pacienti ???
-
+  - Sistem vizualizare informatii scrise de medic VX
 - Sistem contul meu:
-- sistem informatii despre mine V
-- sistem modificare informatii V
+  - sistem informatii despre mine V
+  - sistem modificare informatii V
+
+
+- Autentificare:
+  - autentificare ca medic v
+  - autentificare ca pacient V
+  - ai uitat parola X
+  - mail confirmare cont X
+  - schimba parola X
+
+
+- Main screen:
+  - design pagina home - neautentificat X
+  - design pagina home - autentificat X
+
+- Future:
+  - sistem chat medic/pacient  - saptamana viitoare
+  - bara jos pacienti ???
+
+Sistem analize:
+- sistem vizualizare analize V
+- sistem incarcare analize v
+
+
 
 
 

@@ -1,0 +1,17 @@
+input[type="file"] {
+  visibility: hidden;
+}
+
+.mat-button{
+  background-color: #0190B0;
+  color: #ffff;
+}
+
+.image-preview {
+  height: 5rem;
+  margin: 1rem 0;
+}
+
+.image-preview img {
+  height: 100%;
+}

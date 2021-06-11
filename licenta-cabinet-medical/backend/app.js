@@ -1,5 +1,6 @@
 const express = require('express');
 const mongoose = require('mongoose');
+const cors = require('cors');
 const path = require('path');
 const bodyParser = require('body-parser');
 
@@ -8,6 +9,7 @@ const userRoutes = require('./routes/user');
 const medicRoutes = require('./routes/medic');
 const scheduleRoutes = require('./routes/schedule');
 
+const scheduleUpDownRoutes = require('./routes/scheduleUpDown');
 const app = express();
 
 mongoose.set('useNewUrlParser', true);
@@ -26,10 +28,13 @@ app.use(express.urlencoded({
   extended: true
 }));
 
+app.use("/profileImages", express.static(path.join("backend/profileImages")));
+
+
 app.use((req, res, next) => {
   res.setHeader(
     "Access-Control-Allow-Origin",
-     "*");
+     "http://localhost:4200");
   res.setHeader(
     "Access-Control-Allow-Headers",
     "Origin, X-Requested-With, Content-Type, Accept, Authorization");
@@ -39,8 +44,12 @@ app.use((req, res, next) => {
   next();
 });
 
+// app.use(cors());
+
 app.use("/api/user", userRoutes);
 app.use("/api/medic", medicRoutes);
 app.use("/api/schedule", scheduleRoutes);
+app.use('/api/documents', scheduleUpDownRoutes);
+// app.use("/chat", chatRoutes)
 
 module.exports = app;

@@ -4,6 +4,8 @@ const cryptoJs = require('crypto-js');
 
 const Medic = require('../models/medic');
 const MedicInfo = require('../models/medicInfo');
+const deleteFile = require('fs');
+
 
 
 exports.createMedic = (req, res, next) => {
@@ -92,23 +94,60 @@ exports.loginMedic = (req, res, next) => {
 exports.getMedicPersonalData = (req, res, next) => {
   Medics = MedicInfo.find({userCreator: req.query.userId}).then(medic =>{
     medic = medic[0];
+    filePath = '';
     try {
       phoneNumberDec = cryptoJs.AES.decrypt(medic.phoneNumber, process.env.PASSPHRASE_AES).toString(cryptoJs.enc.Utf8);
       CNPDec = cryptoJs.AES.decrypt(medic.CNP, process.env.PASSPHRASE_AES).toString(cryptoJs.enc.Utf8);
       countyDec = cryptoJs.AES.decrypt(medic.county, process.env.PASSPHRASE_AES).toString(cryptoJs.enc.Utf8);
       addressDec = cryptoJs.AES.decrypt(medic.address, process.env.PASSPHRASE_AES).toString(cryptoJs.enc.Utf8);
+      if(medic.profileImage) {
+        pathDec = cryptoJs.AES.decrypt(medic.profileImage, process.env.PASSPHRASE_AES).toString(cryptoJs.enc.Utf8);
+        filePath = pathDec;
+      }
     }
     catch(err) {
       console.log(err);
     }
     res.status(200).json({
       message: "Informatiile personale",
-      personalData: [phoneNumberDec, CNPDec, countyDec, addressDec, medic.firstName, medic.lastName]
+      personalData: {
+        phoneNumber: phoneNumberDec,
+        CNP: CNPDec,
+        county: countyDec,
+        address: addressDec,
+        firstName: medic.firstName,
+        lastName: medic.lastName,
+        imagePath: filePath
+        }
     });
   }).catch(err => {
     return res.status(404).json({
       message: "Could not find your user in our DataBase!",
       err: err
+    });
+  });
+}
+
+exports.uploadProfilePhoto = (req, res, next) => {
+  const url = req.protocol + '://' + req.get('host');
+  imageFinalPath = url + '/profileImages/' + req.file.filename;
+  imageFinalPathEnc = cryptoJs.AES.encrypt(imageFinalPath, process.env.PASSPHRASE_AES).toString();
+  MedicInfo.findOne({userCreator: req.body.id}).then(medic => {
+    if(medic.profileImage) {
+      pathDec = cryptoJs.AES.decrypt(medic.profileImage, process.env.PASSPHRASE_AES).toString(cryptoJs.enc.Utf8);
+      deleteFile.unlink('backend/' + pathDec.split('http://localhost:3000/')[1] ,(result => {
+      }));
+    }
+    MedicInfo.updateOne({userCreator: req.body.id}, {profileImage: imageFinalPathEnc}).then(response => {
+      res.status(200).json({
+        message: "Imaginea a fost incarcata cu succes!",
+        response: response
+      })
+    }).catch(err => {
+      res.status(500).json({
+        message: "Eroare la incarcare",
+        err: err
+      });
     });
   });
 }

@@ -2,6 +2,7 @@ import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
 import { AuthGuard } from "./auth/auth.guard";
 import { LoginComponent } from "./auth/login/login.component";
+import { ChatComponent } from "./chat/chat.component";
 import { MainScreenComponent } from "./main-screen/main-screen.component";
 import { MyAccountComponent } from "./my-account/my-account.component";
 import { ProgramareComponent } from "./programare/programare.component";
@@ -17,6 +18,7 @@ const appRoutes: Routes = [
   {path: 'selectare', component: SelectMedicAndHourComponent},
   {path: 'my-account', component: MyAccountComponent},
   {path: 'schedules', component: UserScheduleComponent},
+  {path: 'chat', component: ChatComponent},
   {path: '**', redirectTo: '/home'}
 ];
 

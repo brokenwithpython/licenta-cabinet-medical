@@ -23,16 +23,27 @@
         <mat-icon>date_range</mat-icon>
       </mat-panel-description>
     </mat-expansion-panel-header>
+    <h3>Informatii programare:</h3>
     <h4>Data: {{schedule.date}}</h4> <h4>Ora: {{schedule.hour}}</h4>
     <h4>Programare online: {{schedule.onlineSchedule ? "Da" : "Nu"}}</h4>
     <h4>Problema: {{schedule.problem}}</h4>
     <h4>Localitate: {{schedule.address}}</h4>
     <h4>Numar de telefon: {{schedule.phoneNumber}}</h4>
     <h4>Email: {{schedule.email}}</h4>
+
   <hr/>
+    <h3>Informatii adaugate de medic:</h3>
     <h4 *ngIf="schedule.note !== ''">Note programare: {{schedule.note}}</h4>
     <h4 *ngIf="schedule.contraindicatii !== ''">Contraindicatii: {{schedule.contraindicatii}}</h4>
     <h4 *ngIf="schedule.indicatii !== ''">Indicatii: {{schedule.indicatii}}</h4>
+  <hr/>
+    <h3>Fisiere incarcate:</h3>
+    <h4 *ngFor="let name of schedule.fileNames; index as i"><a (click)="downloadPdf(schedule.pdfPaths[i])">{{name}}</a></h4>
+
+
+    <div>
+      <button *ngIf="this.authService.getIsMedicAuth()" mat-stroked-button type="button" (click)="openDialogUpload(schedule)" >Incarca fisiere</button>
+    </div>
     <mat-action-row *ngIf="!this.authService.getIsMedicAuth()">
       <button mat-raised-button color="warn" (click)="deleteSchedule(schedule)">Sterge</button>
       <button mat-button (click)="editSchedule(schedule)">Editeaza</button>

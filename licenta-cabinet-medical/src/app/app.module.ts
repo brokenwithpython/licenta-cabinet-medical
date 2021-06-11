@@ -28,6 +28,10 @@ import { UserScheduleComponent } from './programare/usersSchedule/user-schedule.
 import { ProgramareDialogComponent } from './programare/programareDialog/programare-dialog.component';
 import { EditProgDialogComponent } from './programare/programareEditareMedicDialog/editProgMedic.component';
 import { EditAddInfoScheduleComponent } from './programare/editare-adaugare-info-programare/edit-add-info-schedule.component';
+import { ChatComponent } from './chat/chat.component';
+import { FileUploadModule } from 'ng2-file-upload';
+import { UploadPdfDialog } from './programare/uploadPdfDialog/uploadPdf-dialog.component';
+import { UploadImageDialog } from './my-account/uploadImageDialog/upload-image-dialog.component';
 
 
 @NgModule({
@@ -46,7 +50,10 @@ import { EditAddInfoScheduleComponent } from './programare/editare-adaugare-info
     ProgramareDialogComponent,
     EditProgDialogComponent,
     EditProgDialogComponent,
-    EditAddInfoScheduleComponent
+    EditAddInfoScheduleComponent,
+    ChatComponent,
+    UploadPdfDialog,
+    UploadImageDialog
 
   ],
   imports: [
@@ -56,14 +63,15 @@ import { EditAddInfoScheduleComponent } from './programare/editare-adaugare-info
     AngularMaterialModule,
     HttpClientModule,
     FormsModule,
-    NgxMaterialTimepickerModule
+    NgxMaterialTimepickerModule,
+    FileUploadModule
   ],
   providers: [ {provide: MAT_DATE_LOCALE, useValue: 'ro'},
                 { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
 ],
   bootstrap: [AppComponent],
   entryComponents: [CalendarDialogComponent, SelectHourDialogComponent,
-     ProgramareDialogComponent, EditProgDialogComponent, EditAddInfoScheduleComponent]
+     ProgramareDialogComponent, EditProgDialogComponent, EditAddInfoScheduleComponent, UploadPdfDialog, UploadImageDialog]
 })
 export class AppModule { }
 

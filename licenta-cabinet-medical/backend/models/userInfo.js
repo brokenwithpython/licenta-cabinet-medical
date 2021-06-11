@@ -8,6 +8,7 @@ const userSchema = mongoose.Schema({
   CNP: {type: String, required: true},
   address: {type: String, required: true},
   county: {type: String, required: true},
+  profileImage: {type: String},
   userCreator: {type: mongoose.Schema.Types.ObjectId, ref: "User", required: true}
 });
 

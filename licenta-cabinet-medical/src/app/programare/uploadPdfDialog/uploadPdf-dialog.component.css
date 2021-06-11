@@ -1,0 +1,8 @@
+input[type="file"] {
+  visibility: hidden;
+}
+
+.mat-button{
+  background-color: #0190B0;
+  color: #ffff;
+}

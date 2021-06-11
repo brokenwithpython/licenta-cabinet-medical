@@ -14,6 +14,7 @@ exports.createSchedule = (req, res, next) => {
     note: '',
     contraindicatii: '',
     indicatii: '',
+    pdfPaths: [],
     medicId: req.body.medicId,
     userId: req.userData.userId
   });
@@ -69,7 +70,12 @@ exports.getSchedulesForUsers = (req, res, next) => {
             noteDec = cryptoJs.AES.decrypt(schedule.note, process.env.PASSPHRASE_AES).toString(cryptoJs.enc.Utf8);
             contraindicatiiDec = cryptoJs.AES.decrypt(schedule.contraindicatii, process.env.PASSPHRASE_AES).toString(cryptoJs.enc.Utf8);
             indicatiiDec = cryptoJs.AES.decrypt(schedule.indicatii, process.env.PASSPHRASE_AES).toString(cryptoJs.enc.Utf8);
-
+            pdfPaths = schedule.pdfPaths;
+            finalPaths = [];
+            pdfPaths.forEach(path => {
+              encPath = cryptoJs.AES.decrypt(path, process.env.PASSPHRASE_AES).toString(cryptoJs.enc.Utf8);
+              finalPaths.push('http://localhost:3000/' + 'backend/' + encPath.split('http://localhost:3000/')[1]);
+            })
             scheduleRespone.push({
               _id : schedule._id,
               date: schedule.date,
@@ -81,10 +87,12 @@ exports.getSchedulesForUsers = (req, res, next) => {
               note: noteDec,
               contraindicatii: contraindicatiiDec,
               indicatii: indicatiiDec,
+              pdfPaths: schedule.pdfPaths,
               onlineSchedule: schedule.onlineSchedule,
               medicName: medic.lastName + " " + medic.firstName,
               phoneNumber: phoneNumberDec,
-              email: medic.email
+              email: medic.email,
+              pdfPaths: finalPaths
             });
           }
         })
@@ -117,6 +125,12 @@ exports.getSchedulesForMedics = (req, res, next) => {
             noteDec = cryptoJs.AES.decrypt(schedule.note, process.env.PASSPHRASE_AES).toString(cryptoJs.enc.Utf8);
             contraindicatiiDec = cryptoJs.AES.decrypt(schedule.contraindicatii, process.env.PASSPHRASE_AES).toString(cryptoJs.enc.Utf8);
             indicatiiDec = cryptoJs.AES.decrypt(schedule.indicatii, process.env.PASSPHRASE_AES).toString(cryptoJs.enc.Utf8);
+            pdfPaths = schedule.pdfPaths;
+            finalPaths = [];
+            pdfPaths.forEach(path => {
+              encPath = cryptoJs.AES.decrypt(path, process.env.PASSPHRASE_AES).toString(cryptoJs.enc.Utf8);
+              finalPaths.push('http://localhost:3000/' + 'backend/' + encPath.split('http://localhost:3000/')[1]);
+            })
             scheduleResponse.push({
               _id : schedule._id,
               date: schedule.date,
@@ -128,10 +142,12 @@ exports.getSchedulesForMedics = (req, res, next) => {
               note: noteDec,
               contraindicatii: contraindicatiiDec,
               indicatii: indicatiiDec,
+              pdfPaths: schedule.pdfPaths,
               onlineSchedule: schedule.onlineSchedule,
               userName: user.lastName + " " + user.firstName,
               phoneNumber: phoneNumberDec,
-              email: user.email
+              email: user.email,
+              pdfPaths: finalPaths
             });
           }
         })

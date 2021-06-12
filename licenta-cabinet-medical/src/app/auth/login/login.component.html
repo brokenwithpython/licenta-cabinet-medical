@@ -1,0 +1,50 @@
+<div class="center">
+  <mat-spinner *ngIf="isLoading"></mat-spinner>
+  <form [formGroup]="form" (submit)="onLogin(loginForm)" #loginForm="ngForm" *ngIf="!isLoading">
+    <!-- <mat-progress-bar mode="determinate" value="50" color="warn" *ngIf="!this.continuePressed"></mat-progress-bar> -->
+    <mat-progress-bar mode="determinate" value="100" color="warn"></mat-progress-bar>
+    <mat-card>
+      <mat-card-title class="center">Intra in contul tau FamilyLife</mat-card-title>
+      <br/>
+      <mat-card-subtitle class="center">Ai acces la cei mai buni medici de familie din Romania!</mat-card-subtitle>
+      <mat-card-subtitle class="center">Te programezi online, ai acces la dosarul tau medical oriunde, oricand!</mat-card-subtitle>
+        <mat-form-field appearance="outline">
+          <mat-label>Email</mat-label>
+          <input
+          autocomplete="username"
+            matInput
+            type="email"
+            name="email"
+            [formControlName] = "'email'"
+            placeholder="Email">
+          <mat-error *ngIf="form.get('email').invalid">Introduceti email-ul dumneavoastra.</mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Parola</mat-label>
+          <input
+          autocomplete="current-password"
+            matInput
+            type="password"
+            name="password"
+            [formControlName] = "'password'"
+            placeholder="Parola">
+          <mat-error *ngIf="form.get('password').invalid">Introduceti parola.</mat-error>
+        </mat-form-field>
+        <mat-slide-toggle
+          formControlName="isMedic"
+          >Sunteti medic?
+        </mat-slide-toggle>
+        <div class="buttons">
+          <div class="button">
+              <button
+                mat-button
+                color="accent"
+                type="submit">Intra in cont
+            </button>
+          </div>
+        </div>
+        <p class="center">Nu ai cont?</p>
+        <p class="center"><a routerLink="/auth/sign-up">&nbsp;Creaza acum unul rapid si simplu.</a></p>
+    </mat-card>
+  </form>
+</div>

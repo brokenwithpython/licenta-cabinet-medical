@@ -1,0 +1,18 @@
+<div class="dialog">
+  <form  [formGroup]="form" (submit)="onSavePost()" #postForm="ngForm">
+  <h2 class="center" mat-dialog-title>Incarcare fisier PDF.</h2>
+  <div mat-dialog-content>
+    <div class="center">
+      <button class="center" *ngIf="this.form.get('pdf').value === null" mat-stroked-button type="button" (click)="fileUpload.click()">Alege fisier</button>
+    </div>
+    <input type="file" #fileUpload (change)="onPdfPicked($event)">
+    <div class="image-preview center" *ngIf="this.form.get('pdf').value !== null">
+      <h4>{{this.form.get('pdf').value.name}}</h4>
+    </div>
+  </div>
+  <div mat-dialog-actions class="center" *ngIf="this.form.get('pdf').value !== null">
+    <button mat-raised-button color="warn" [mat-dialog-close]="false">Inapoi</button>
+    <button mat-button type='submit' [mat-dialog-close]="[true]" cdkFocusInitial>Incarcare</button>
+  </div>
+  </form>
+</div>

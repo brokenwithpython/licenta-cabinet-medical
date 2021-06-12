@@ -1,0 +1,32 @@
+
+<div class="container">
+  <div class="calendar">
+    <div class="month">
+      <i class="fas fa-angle-left prev" (click)="prevMonth()"></i>
+      <div class="date">
+        <h1>{{ currentMonth }} {{ currentYear }}</h1>
+        <p>Azi : {{ currentDate }}</p>
+      </div>
+      <i class="fas fa-angle-right next" (click)="nextMonth()"></i>
+    </div>
+    <div class="weekdays">
+      <div>Lu</div>
+      <div>Ma</div>
+      <div>Mi</div>
+      <div>Jo</div>
+      <div>Vi</div>
+      <div>Sa</div>
+      <div>Du</div>
+    </div>
+    <hr>
+    <div class="days" id="daysId" >
+      <div class="prev-date" *ngFor="let day of prevMonthDays">{{ day }}</div>
+      <div *ngFor="let day of curentMonthDays" id="day{{ day }}" (click)="dayClick($event)">{{ day }}</div>
+      <div
+        class="next-date"
+        *ngFor="let day of nextMonthDays">
+        {{ day }}
+      </div>
+    </div>
+  </div>
+</div>

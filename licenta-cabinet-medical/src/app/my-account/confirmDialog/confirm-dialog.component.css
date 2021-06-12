@@ -1,0 +1,25 @@
+
+h2 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #0190B0;
+}
+
+h4 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: normal;
+}
+
+.mat-dialog-actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mat-button{
+  background-color: #0190B0;
+  color: #ffff;
+}

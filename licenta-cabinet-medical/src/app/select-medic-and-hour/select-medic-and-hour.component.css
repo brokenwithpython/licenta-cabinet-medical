@@ -1,0 +1,73 @@
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-gap: 20px;
+}
+
+mat-card {
+  background-color: #f8f8f8;
+  cursor: pointer;
+  /* width: 400px; */
+  /* height: 300px; */
+  /* padding: 0 20px 0; */
+  /* margin: 0 20px 0; */
+}
+
+.header {
+  justify-content: space-between;
+  display: flex;
+
+  align-items: center;
+  justify-content:left;
+}
+
+img {
+  vertical-align: middle;
+  display: inline-block;
+  border-radius: 50%;
+  height: 70px;
+  width: 70px;
+}
+
+.name {
+  display: inline-block;
+  padding-left: 20px;
+  color: #0190B0;
+
+}
+
+.tag {
+  font-size: 12px;
+  margin-bottom: -10px;
+}
+
+.tagContent {
+  font-size: 14px;
+}
+
+.mat-button{
+  background-color: #0190B0;
+  color: #ffff;
+}
+
+.button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.item {
+  width: auto;
+}
+
+#selectHour {
+  margin-bottom: 10px;
+}
+
+@media screen and (max-width: 770px){
+
+  mat-card {
+    margin: 15px -15px;
+  }
+
+}

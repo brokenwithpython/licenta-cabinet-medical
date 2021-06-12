@@ -1,0 +1,66 @@
+
+
+mat-card {
+  /* width: 50%; */
+  background-color: #f8f8f8;
+  margin: 0 auto
+}
+
+mat-progress-bar {
+  color: #0190B0;
+}
+
+mat-form-field {
+  width: 100%;
+}
+
+mat-spinner {
+  margin: auto
+}
+
+
+.center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* margin: 0 5px 0; */
+}
+
+.buttons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.button {
+  margin-top: 20px;
+  padding: 5px 5px 5px;
+}
+
+.new-account {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+a {
+  text-decoration: none;
+  color: #0190B0;
+}
+
+.mat-button{
+  background-color: #0190B0;
+  color: #ffff;
+}
+
+@media screen and (max-width: 600px){
+
+ /* mat-card {
+  width: 320px;
+} */
+/*
+mat-progress-bar {
+  width: 80%;
+} */
+
+}

@@ -1,0 +1,24 @@
+textarea {
+  height: 100px;
+  width: 100%;
+}
+
+mat-form-field {
+  width: 100%;
+}
+
+.button {
+  padding: 5px 5px 5px;
+  display: inline;
+}
+
+mat-dialog-actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mat-button{
+  background-color: #0190B0;
+  color: #ffff;
+}

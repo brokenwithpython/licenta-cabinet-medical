@@ -1,0 +1,73 @@
+<link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css"
+  />
+
+<!-- <p *ngIf="userIsAuthenticated">Esti autentificat</p>
+<p *ngIf="!userIsAuthenticated">Nu esti autentificat!</p> -->
+<div class="flex" id="container">
+  <div class="card">
+    <mat-card class="matCardClass">
+      <a routerLink="/programare">
+      <div  class="iconAndText">
+          <div class="icon center">
+            <mat-icon>schedule</mat-icon>
+          </div>
+          <p class="center">Adauga o programare</p>
+        </div>
+      </a>
+    </mat-card>
+  </div>
+  <div class="calendar">
+    <app-calendar class="flex"></app-calendar>
+  </div>
+</div>
+
+<div class="flex" id="container">
+  <div class="card">
+    <mat-card class="matCardClass1">
+      <a routerLink="/auth/sign-up">
+        <div class="iconAndText">
+          <div class="icon center">
+            <mat-icon>schedule</mat-icon>
+          </div>
+          <div class="textAlign">
+            <p>Adaugati informatii critice despre dumneavoastra</p>
+            <p>Boli, intolerante, reactii adverse la diverse pastile etc...</p>
+          </div>
+        </div>
+      </a>
+    </mat-card>
+  </div>
+</div>
+
+<div class="flex" id="container">
+  <div class="card">
+    <mat-card class="matCardClass1">
+      <a routerLink="/auth/sign-up">
+      <div  class="iconAndText">
+          <div class="icon center">
+            <mat-icon>schedule</mat-icon>
+          </div>
+          <p class="center">Vizualizare analize</p>
+        </div>
+      </a>
+    </mat-card>
+  </div>
+</div>
+
+<div class="flex" id="container">
+  <div class="card">
+    <mat-card class="matCardClass2">
+      <a routerLink="/auth/sign-up">
+      <div  class="iconAndText">
+          <div class="icon">
+            <mat-icon>schedule</mat-icon>
+          </div>
+          <p class="center">Vizualizare consultatii</p>
+        </div>
+      </a>
+    </mat-card>
+</div>
+
+

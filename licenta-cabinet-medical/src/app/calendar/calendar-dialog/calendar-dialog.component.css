@@ -1,0 +1,26 @@
+.button {
+  padding: 5px 5px 5px;
+}
+
+.buttons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mat-button{
+  background-color: #0190B0;
+  color: #ffff;
+}
+
+h2 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ff0000;
+}
+
+a {
+  text-decoration: none;
+  color: #ffff;
+}

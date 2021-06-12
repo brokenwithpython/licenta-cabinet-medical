@@ -1,0 +1,20 @@
+<div class="dialog">
+  <form  [formGroup]="form" (submit)="onSavePost()" #postForm="ngForm">
+  <h2 mat-dialog-title class="center">Incarcare Poza Profil</h2>
+  <div mat-dialog-content >
+    <div class="center">
+      <button *ngIf="this.form.get('image').value === null" mat-stroked-button type="button" (click)="fileUpload.click()">Alege fisier</button>
+    </div>
+    <input type="file" #fileUpload (change)="onImagePicked($event)">
+    <div class="image-preview center" *ngIf="this.form.get('image').value !== null">
+      <div class="image-preview" *ngIf="imagePreview !== '' && imagePreview && form.get('image').valid">
+        <img [src]="imagePreview" [alt]="form.value.title">
+      </div>
+    </div>
+  </div>
+  <div class="center" mat-dialog-actions *ngIf="this.form.get('image').value !== null">
+    <button mat-raised-button color="warn" [mat-dialog-close]="false">Inapoi</button>
+    <button mat-button type='submit' [mat-dialog-close]="[true]" cdkFocusInitial>Incarcare</button>
+  </div>
+  </form>
+</div>

@@ -1,0 +1,174 @@
+<div class='all'></div>
+<h2 *ngIf="this.todaySchedules[0]">Programarile de azi:</h2>
+<mat-spinner *ngIf="isLoading"></mat-spinner>
+<mat-accordion class="example-headers-align" multi *ngIf="!isLoading">
+  <mat-expansion-panel
+  (opened)="panelOpenState = true"
+  (closed)="panelOpenState = false"
+    id="panelSchedule-{{schedule._id}}"
+    (click)="designPanel(schedule)"
+    *ngFor="let schedule of this.todaySchedules">
+
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        <h4>{{schedule.problem}}</h4>
+      </mat-panel-title>
+
+      <mat-panel-description>
+        <div class="problema" *ngIf="this.authService.getIsMedicAuth()">
+          <h4>{{schedule.userName}}</h4>
+        </div>
+        <div class="problema" *ngIf="!this.authService.getIsMedicAuth()">
+          <h4>Dr: {{schedule.medicLastName}}</h4>
+        </div>
+        <br>
+        <mat-icon>date_range</mat-icon>
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+    <h3>Informatii programare:</h3>
+    <h4>Data: {{schedule.date}}</h4> <h4>Ora: {{schedule.hour}}</h4>
+    <h4>Programare online: {{schedule.onlineSchedule ? "Da" : "Nu"}}</h4>
+    <h4>Problema: {{schedule.problem}}</h4>
+    <h4>Localitate: {{schedule.address}}</h4>
+    <h4>Numar de telefon: {{schedule.phoneNumber}}</h4>
+    <h4>Email: {{schedule.email}}</h4>
+
+  <hr/>
+    <h3>Informatii adaugate de medic:</h3>
+    <h4 *ngIf="schedule.note !== ''">Note programare: {{schedule.note}}</h4>
+    <h4 *ngIf="schedule.contraindicatii !== ''">Contraindicatii: {{schedule.contraindicatii}}</h4>
+    <h4 *ngIf="schedule.indicatii !== ''">Indicatii: {{schedule.indicatii}}</h4>
+  <hr/>
+    <h3>Fisiere incarcate:</h3>
+    <h4 class="fisiere" *ngFor="let name of schedule.fileNames; index as i"><a id="fisiere" (click)="downloadPdf(schedule.pdfPaths[i])">{{name}}</a></h4>
+
+
+    <div>
+      <button *ngIf="this.authService.getIsMedicAuth()" mat-stroked-button type="button" (click)="openDialogUpload(schedule)" >Incarca fisiere</button>
+    </div>
+    <mat-action-row *ngIf="!this.authService.getIsMedicAuth()">
+      <button mat-raised-button color="warn" (click)="deleteSchedule(schedule)">Sterge</button>
+      <button mat-button (click)="editSchedule(schedule)">Editeaza</button>
+    </mat-action-row>
+    <mat-action-row *ngIf="this.authService.getIsMedicAuth()">
+      <button mat-raised-button color="warn" (click)="deleteSchedule(schedule)">Anuleaza</button>
+      <button mat-button (click)="editScheduleInfo(schedule)">Editeaza</button>
+    </mat-action-row>
+  </mat-expansion-panel>
+</mat-accordion>
+
+<h2 *ngIf="this.pastSchedules[0]">Istoric programari:</h2>
+<mat-spinner *ngIf="isLoading"></mat-spinner>
+<mat-accordion class="example-headers-align" multi *ngIf="!isLoading">
+  <mat-expansion-panel
+  (opened)="panelOpenState = true"
+  (closed)="panelOpenState = false"
+    id="panelSchedule-{{schedule._id}}"
+    (click)="designPanel(schedule)"
+    *ngFor="let schedule of this.pastSchedules">
+
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        <h4>{{schedule.problem}}</h4>
+      </mat-panel-title>
+
+      <mat-panel-description>
+        <div class="problema" *ngIf="this.authService.getIsMedicAuth()">
+          <h4>{{schedule.userName}}</h4>
+        </div>
+        <div class="problema" *ngIf="!this.authService.getIsMedicAuth()">
+          <h4>Dr: {{schedule.medicLastName}}</h4>
+        </div>
+        <br>
+        <mat-icon>date_range</mat-icon>
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+    <h3>Informatii programare:</h3>
+    <h4>Data: {{schedule.date}}</h4> <h4>Ora: {{schedule.hour}}</h4>
+    <h4>Programare online: {{schedule.onlineSchedule ? "Da" : "Nu"}}</h4>
+    <h4>Problema: {{schedule.problem}}</h4>
+    <h4>Localitate: {{schedule.address}}</h4>
+    <h4>Numar de telefon: {{schedule.phoneNumber}}</h4>
+    <h4>Email: {{schedule.email}}</h4>
+
+  <hr/>
+    <h3>Informatii adaugate de medic:</h3>
+    <h4 *ngIf="schedule.note !== ''">Note programare: {{schedule.note}}</h4>
+    <h4 *ngIf="schedule.contraindicatii !== ''">Contraindicatii: {{schedule.contraindicatii}}</h4>
+    <h4 *ngIf="schedule.indicatii !== ''">Indicatii: {{schedule.indicatii}}</h4>
+  <hr/>
+    <h3>Fisiere incarcate:</h3>
+    <h4 *ngFor="let name of schedule.fileNames; index as i"><a (click)="downloadPdf(schedule.pdfPaths[i])">{{name}}</a></h4>
+
+
+    <div>
+      <button *ngIf="this.authService.getIsMedicAuth()" mat-stroked-button type="button" (click)="openDialogUpload(schedule)" >Incarca fisiere</button>
+    </div>
+    <mat-action-row *ngIf="!this.authService.getIsMedicAuth()">
+      <button mat-raised-button color="warn" (click)="deleteSchedule(schedule)">Sterge</button>
+      <!-- <button mat-button (click)="editSchedule(schedule)">Editeaza</button> -->
+    </mat-action-row>
+    <mat-action-row *ngIf="this.authService.getIsMedicAuth()">
+      <button mat-raised-button color="warn" (click)="deleteSchedule(schedule)">Anuleaza</button>
+      <button mat-button (click)="editScheduleInfo(schedule)">Editeaza</button>
+    </mat-action-row>
+  </mat-expansion-panel>
+</mat-accordion>
+
+<h2 *ngIf="this.nextSchedules[0]">Programari viitoare:</h2>
+<mat-spinner *ngIf="isLoading"></mat-spinner>
+<mat-accordion class="example-headers-align" multi *ngIf="!isLoading">
+  <mat-expansion-panel
+  (opened)="panelOpenState = true"
+  (closed)="panelOpenState = false"
+    id="panelSchedule-{{schedule._id}}"
+    (click)="designPanel(schedule)"
+    *ngFor="let schedule of this.nextSchedules">
+
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        <h4>{{schedule.problem}}</h4>
+      </mat-panel-title>
+
+      <mat-panel-description>
+        <div class="problema" *ngIf="this.authService.getIsMedicAuth()">
+          <h4>{{schedule.userName}}</h4>
+        </div>
+        <div class="problema" *ngIf="!this.authService.getIsMedicAuth()">
+          <h4>Dr: {{schedule.medicLastName}}</h4>
+        </div>
+        <br>
+        <mat-icon>date_range</mat-icon>
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+    <h3>Informatii programare:</h3>
+    <h4>Data: {{schedule.date}}</h4> <h4>Ora: {{schedule.hour}}</h4>
+    <h4>Programare online: {{schedule.onlineSchedule ? "Da" : "Nu"}}</h4>
+    <h4>Problema: {{schedule.problem}}</h4>
+    <h4>Localitate: {{schedule.address}}</h4>
+    <h4>Numar de telefon: {{schedule.phoneNumber}}</h4>
+    <h4>Email: {{schedule.email}}</h4>
+
+  <hr/>
+    <h3>Informatii adaugate de medic:</h3>
+    <h4 *ngIf="schedule.note !== ''">Note programare: {{schedule.note}}</h4>
+    <h4 *ngIf="schedule.contraindicatii !== ''">Contraindicatii: {{schedule.contraindicatii}}</h4>
+    <h4 *ngIf="schedule.indicatii !== ''">Indicatii: {{schedule.indicatii}}</h4>
+  <hr/>
+    <h3>Fisiere incarcate:</h3>
+    <h4 *ngFor="let name of schedule.fileNames; index as i"><a (click)="downloadPdf(schedule.pdfPaths[i])">{{name}}</a></h4>
+
+
+    <div>
+      <button *ngIf="this.authService.getIsMedicAuth()" mat-stroked-button type="button" (click)="openDialogUpload(schedule)" >Incarca fisiere</button>
+    </div>
+    <mat-action-row *ngIf="!this.authService.getIsMedicAuth()">
+      <button mat-raised-button color="warn" (click)="deleteSchedule(schedule)">Sterge</button>
+      <button mat-button (click)="editSchedule(schedule)">Editeaza</button>
+    </mat-action-row>
+    <mat-action-row *ngIf="this.authService.getIsMedicAuth()">
+      <button mat-raised-button color="warn" (click)="deleteSchedule(schedule)">Anuleaza</button>
+      <button mat-button (click)="editScheduleInfo(schedule)">Editeaza</button>
+    </mat-action-row>
+  </mat-expansion-panel>
+</mat-accordion>

@@ -1,0 +1,131 @@
+<!-- <mat-grid-list cols="10" rowHeight="100px">
+  <mat-grid-tile
+      [colspan]="3"
+      [rowspan]="8"
+      [style.background]="'lightgreen'">
+      1
+  </mat-grid-tile>
+  <mat-grid-tile
+    [colspan]="7"
+    [rowspan]="8"
+    [style.background]="'lightblue'">
+    2
+  </mat-grid-tile>
+</mat-grid-list> -->
+<div class="row">
+  <div class="card">
+    <mat-card class="matCardClass">
+      <div class="column left">
+        <div id="img" *ngIf="!this.authService.getIsMedicAuth()">
+          <img *ngIf="imagePath"  [src]="imagePath">
+          <img *ngIf="!imagePath"  src="../../assets/user.png">
+
+        </div>
+        <div id="img" *ngIf="this.authService.getIsMedicAuth()">
+          <img *ngIf="imagePath"  [src]="imagePath" alt="Avatar">
+          <img *ngIf="!imagePath"  src="../../assets/medic_img.png" alt="Avatar">
+        </div>
+        <div class="buttonUpload">
+          <button mat-stroked-button type="button" (click)="openDialogUpload()" >Schimba Fotografia <mat-icon>add_a_photo</mat-icon></button>
+        </div>
+        <div id="nameAfterImg">
+          <h3>{{ this.form.get('lastName').value + ' ' + this.form.get('firstName').value}}</h3>
+        </div>
+
+
+    </div>
+    <div class="column right">
+      <div id="nameAfterImg">
+        <h2>Bine ai venit!</h2>
+      </div>
+      <div id="nameAfterImg">
+        <p>Aici poti gasi si modifica toate informatiile tale personale.</p>
+      </div>
+    </div>
+    <div class="column anotherColumn">
+      <form [formGroup]="form" (submit)="onChange()" #editAccountform="ngForm">
+        <div id="infos">
+          <mat-form-field appearance="outline">
+            <mat-label>Nume de familie</mat-label>
+            <input
+              matInput
+              type="text"
+              name="lastName"
+              [formControlName] = "'lastName'"
+              placeholder="Nume de familie">
+            <mat-error *ngIf="form.get('lastName').invalid">Introduceti un nume valid.</mat-error>
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Prenume</mat-label>
+            <input
+              matInput
+              type="text"
+              name="firstName"
+              [formControlName] = "'firstName'"
+              placeholder="Prenume">
+            <mat-error *ngIf="form.get('firstName').invalid">Introduceti un prenume valid.</mat-error>
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Numar de telefon</mat-label>
+            <input
+              matInput
+              type="text"
+              name="phoneNumber"
+              [formControlName] = "'phoneNumber'"
+              placeholder="Numar de telefon">
+            <mat-error *ngIf="form.get('phoneNumber').invalid">Introduceti un numar de telefon corect.</mat-error>
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>CNP</mat-label>
+            <input
+              matInput
+              type="text"
+              name="cnp"
+              [formControlName] = "'cnp'"
+              placeholder="CNP">
+            <mat-error *ngIf="form.get('cnp').invalid">Introduceti un CNP valid.</mat-error>
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Alegeti judetul</mat-label>
+            <mat-select
+               formControlName="county">
+               <mat-option *ngFor="let judet of this.programareService.judete" [value]="judet">{{ judet }}</mat-option>
+            </mat-select>
+         </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Adresa locuintei</mat-label>
+            <input
+              matInput
+              type="text"
+              name="address"
+              [formControlName] = "'address'"
+              placeholder="Adresa de domiciliu">
+            <mat-error *ngIf="form.get('address').invalid">Introduceti o adresa valida.</mat-error>
+          </mat-form-field>
+        </div>
+
+          <div id="imgLock" *ngIf="!asd" class="buttons">
+            <img (click)="enableEditing()" src="../../assets/lock.png" alt="Avatar">
+          </div>
+          <div class="buttons" *ngIf="asd">
+            <div id="buttonSave" class="button">
+              <button
+                type="submit"
+                (click)="submitChanges()"
+                mat-button
+                >Salveaza modificarile
+              </button>
+            </div>
+            <div id="buttonCancel" class="button">
+              <button
+                (click)="disableEditing()"
+                mat-raised-button
+                color="warn"
+                type="submit">Inapoi
+              </button>
+            </div>
+        </div>
+      </form>
+    </div>
+    </mat-card>
+  </div>

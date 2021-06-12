@@ -21,6 +21,10 @@ mat-spinner {
   margin: auto
 }
 
+a {
+  cursor: pointer;
+}
+
 
 .problema {
   display: flex;

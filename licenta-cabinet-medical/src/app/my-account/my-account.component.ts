@@ -5,6 +5,7 @@ import { DomSanitizer } from "@angular/platform-browser";
 import { Subscription } from "rxjs";
 import { AuthService } from "../auth/auth.service";
 import { ProgramareService } from "../programare/programare.service";
+import { ConfirmDialogComponent } from "./confirmDialog/confirm-dialog.component";
 import { UploadImageDialog } from "./uploadImageDialog/upload-image-dialog.component";
 
 @Component({
@@ -43,7 +44,7 @@ export class MyAccountComponent implements OnInit, OnDestroy{
     this.personalInfoSubs = this.authService.getInfosListner().subscribe(data => {
       this.personalData = data;
       this.imagePath = this.personalData.imagePath;
-      // console.log(this.personalData.imagePath)
+      console.log(this.personalData.imagePath === '')
       this.form = new FormGroup({
         firstName: new FormControl(this.personalData.firstName, {validators: [Validators.required, Validators.pattern('^[A-Za-z -]+$')]}),
         lastName:  new FormControl(this.personalData.lastName, {validators: [Validators.required, Validators.pattern('^[A-Za-z -]+$')]}),
@@ -64,7 +65,6 @@ export class MyAccountComponent implements OnInit, OnDestroy{
   openDialogUpload() {
     const dialogRef = this.dialog.open(UploadImageDialog, {
       width: '325px',
-      data: {name: this.personalData[5] + ' ' + this.personalData[4]}
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -77,13 +77,22 @@ export class MyAccountComponent implements OnInit, OnDestroy{
   }
 
 
+  enableEditing() {
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      width: '325px',
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if(result) {
+        this.asd = true
+        this.form.enable();
+      }
+    });
+  }
+
   disableEditing() {
-    this.asd = !this.asd;
-    if (this.asd) {
-      this.form.enable();
-    } else {
-      this.form.disable();
-    }
+    this.asd = false;
+    this.form.disable();
   }
 
   submitChanges() {
@@ -91,8 +100,7 @@ export class MyAccountComponent implements OnInit, OnDestroy{
       this.authService.putPersonalData(this.form.get('firstName').value, this.form.get('lastName').value,
                                         this.form.get('phoneNumber').value, this.form.get('cnp').value,
                                          this.form.get('address').value, this.form.get('county').value);
-      this.asd = !this.asd;
-      this.form.disable();
+      this.disableEditing()
     } else {
       console.log(this.form.value);
     }

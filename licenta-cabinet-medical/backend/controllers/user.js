@@ -39,18 +39,20 @@ exports.createUser = (req, res, next) => {
       }).catch(err => {
         console.log(err);
         return res.status(500).json({
-          message: "Invalid authentication credentials!"
+          message: "Email sau CNP deja folosite!"
         });
       })
     })
     .catch(err => {
       console.log(err);
       return res.status(500).json({
-        message: "Invalid authentication credentials!"
+        message: "Email sau CNP deja folosite!"
       });
     });
   }).catch(err => {
-    console.log(err);
+    return res.status(500).json({
+      message: "Eroare interna! Va rugam sa reincercati!"
+    });
   });
 }
 

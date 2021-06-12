@@ -32,16 +32,34 @@ export class UserScheduleComponent implements OnInit, OnDestroy{
   schedules;
   private schedulesSubs: Subscription;
   panelOpenState = false;
+  currentDay = new Date().getDate();
+  currentMonth = new Date().getMonth() + 1;
+  currentYear = new Date().getFullYear();
 
+  pastSchedules = [];
+  nextSchedules = [];
+  todaySchedules = [];
   constructor(private programareService: ProgramareService, public authService: AuthService, public dialog: MatDialog, private router: Router) {}
 
   ngOnInit() {
-
     this.schedules = this.getUsersSchedules();
     this.schedulesSubs = this.programareService.getAllScheduleListner().subscribe(res => {
       this.schedules = res;
-      // console.log(this.schedules);
       this.isLoading = false;
+      for(let schedule of this.schedules) {
+        if (this.currentDay === parseInt(schedule.date.split(' ')[0])  && this.currentMonth === parseInt(schedule.date.split(' ')[1])) {
+          this.todaySchedules.push(schedule);
+        } else if (this.currentMonth < parseInt(schedule.date.split(' ')[1])) {
+          this.nextSchedules.push(schedule);
+        } else if(this.currentMonth > parseInt(schedule.date.split(' ')[1])) {
+          this.pastSchedules.push(schedule);
+        } else if(this.currentMonth === parseInt(schedule.date.split(' ')[1]) && this.currentDay < parseInt(schedule.date.split(' ')[0])) {
+          this.nextSchedules.push(schedule);
+        } else if(this.currentMonth === parseInt(schedule.date.split(' ')[1]) && this.currentDay > parseInt(schedule.date.split(' ')[0])) {
+          this.pastSchedules.push(schedule);
+        }
+      }
+
     })
   }
 

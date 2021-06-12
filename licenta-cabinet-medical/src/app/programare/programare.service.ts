@@ -89,6 +89,7 @@ export class ProgramareService {
 
   addSchedule(medic) {
     // console.log(medic.online)
+    console.log(medic.date);
     const scheduleData: Schedule = {
       date: medic.date,
       hour: medic.ora,
@@ -100,7 +101,7 @@ export class ProgramareService {
   };
     this.http.post(BACKEND_URL + 'create', scheduleData)
       .subscribe(responseData => {
-        this.router.navigate(['/home']);
+        this.router.navigate(['/schedules']);
       })
   }
 

@@ -63,3 +63,11 @@ img {
 #selectHour {
   margin-bottom: 10px;
 }
+
+@media screen and (max-width: 770px){
+
+  mat-card {
+    margin: 15px -15px;
+  }
+
+}

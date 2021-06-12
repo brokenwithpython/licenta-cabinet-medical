@@ -16,15 +16,22 @@
   <div class="card">
     <mat-card class="matCardClass">
       <div class="column left">
-        <div id="img">
-          <img *ngIf="!this.authService.getIsMedicAuth()" [src]="imagePath" alt="Avatar">
+        <div id="img" *ngIf="!this.authService.getIsMedicAuth()">
+          <img *ngIf="imagePath"  [src]="imagePath">
+          <img *ngIf="!imagePath"  src="../../assets/user.png">
+
         </div>
-        <div id="img">
-          <img *ngIf="this.authService.getIsMedicAuth()" [src]="imagePath" alt="Avatar">
+        <div id="img" *ngIf="this.authService.getIsMedicAuth()">
+          <img *ngIf="imagePath"  [src]="imagePath" alt="Avatar">
+          <img *ngIf="!imagePath"  src="../../assets/medic_img.png" alt="Avatar">
+        </div>
+        <div class="buttonUpload">
+          <button mat-stroked-button type="button" (click)="openDialogUpload()" >Schimba Fotografia <mat-icon>add_a_photo</mat-icon></button>
         </div>
         <div id="nameAfterImg">
           <h3>{{ this.form.get('lastName').value + ' ' + this.form.get('firstName').value}}</h3>
         </div>
+
 
     </div>
     <div class="column right">
@@ -96,11 +103,9 @@
             <mat-error *ngIf="form.get('address').invalid">Introduceti o adresa valida.</mat-error>
           </mat-form-field>
         </div>
-        <div>
-          <button  mat-stroked-button type="button" (click)="openDialogUpload()" >Incarca fisiere</button>
-        </div>
+
           <div id="imgLock" *ngIf="!asd" class="buttons">
-            <img (click)="disableEditing()" src="../../assets/lock.png" alt="Avatar">
+            <img (click)="enableEditing()" src="../../assets/lock.png" alt="Avatar">
           </div>
           <div class="buttons" *ngIf="asd">
             <div id="buttonSave" class="button">

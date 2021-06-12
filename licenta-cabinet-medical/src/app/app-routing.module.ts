@@ -14,11 +14,11 @@ const appRoutes: Routes = [
   // {path: '', redirectTo: 'home', pathMatch: 'full'},
   {path: 'home', component: MainScreenComponent},
   {path: 'auth', loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule)},
-  {path: 'programare', component: ProgramareComponent},
-  {path: 'selectare', component: SelectMedicAndHourComponent},
-  {path: 'my-account', component: MyAccountComponent},
-  {path: 'schedules', component: UserScheduleComponent},
-  {path: 'chat', component: ChatComponent},
+  {path: 'programare', component: ProgramareComponent, canActivate: [AuthGuard]},
+  {path: 'selectare', component: SelectMedicAndHourComponent , canActivate: [AuthGuard]},
+  {path: 'my-account', component: MyAccountComponent , canActivate: [AuthGuard]},
+  {path: 'schedules', component: UserScheduleComponent , canActivate: [AuthGuard]},
+  {path: 'chat', component: ChatComponent, canActivate: [AuthGuard]},
   {path: '**', redirectTo: '/home'}
 ];
 

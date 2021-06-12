@@ -1,0 +1,16 @@
+h1 {
+  color: red;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mat-dialog-actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mat-raised-button {
+  width: 100px;
+}

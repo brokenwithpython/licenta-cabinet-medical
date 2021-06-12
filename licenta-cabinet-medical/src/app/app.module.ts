@@ -32,6 +32,10 @@ import { ChatComponent } from './chat/chat.component';
 import { FileUploadModule } from 'ng2-file-upload';
 import { UploadPdfDialog } from './programare/uploadPdfDialog/uploadPdf-dialog.component';
 import { UploadImageDialog } from './my-account/uploadImageDialog/upload-image-dialog.component';
+import { ErrorComponent } from './error/error.component';
+import { ErrorInterceptor } from './error-interceptor';
+import { ConfirmDialogComponent } from './my-account/confirmDialog/confirm-dialog.component';
+import { SuccessScheduleDialog } from './select-medic-and-hour/successSchedule/success-schedule.component';
 
 
 @NgModule({
@@ -53,7 +57,10 @@ import { UploadImageDialog } from './my-account/uploadImageDialog/upload-image-d
     EditAddInfoScheduleComponent,
     ChatComponent,
     UploadPdfDialog,
-    UploadImageDialog
+    UploadImageDialog,
+    ErrorComponent,
+    ConfirmDialogComponent,
+    SuccessScheduleDialog
 
   ],
   imports: [
@@ -66,12 +73,15 @@ import { UploadImageDialog } from './my-account/uploadImageDialog/upload-image-d
     NgxMaterialTimepickerModule,
     FileUploadModule
   ],
-  providers: [ {provide: MAT_DATE_LOCALE, useValue: 'ro'},
-                { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+  providers: [
+    { provide: MAT_DATE_LOCALE, useValue: 'ro'},
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }
 ],
   bootstrap: [AppComponent],
   entryComponents: [CalendarDialogComponent, SelectHourDialogComponent,
-     ProgramareDialogComponent, EditProgDialogComponent, EditAddInfoScheduleComponent, UploadPdfDialog, UploadImageDialog]
+     ProgramareDialogComponent, EditProgDialogComponent, EditAddInfoScheduleComponent, UploadPdfDialog, UploadImageDialog,
+    ErrorComponent, ConfirmDialogComponent, SuccessScheduleDialog]
 })
 export class AppModule { }
 

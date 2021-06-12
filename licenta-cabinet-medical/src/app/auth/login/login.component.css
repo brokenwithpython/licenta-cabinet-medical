@@ -1,3 +1,5 @@
+
+
 mat-card {
   /* width: 50%; */
   background-color: #f8f8f8;
@@ -31,6 +33,7 @@ mat-spinner {
 }
 
 .button {
+  margin-top: 20px;
   padding: 5px 5px 5px;
 }
 
@@ -50,12 +53,12 @@ a {
   color: #ffff;
 }
 
-@media screen and (max-width: 1000px){
+@media screen and (max-width: 600px){
 
-/* mat-card {
-  width: 70%;
-}
-
+ /* mat-card {
+  width: 320px;
+} */
+/*
 mat-progress-bar {
   width: 80%;
 } */

@@ -61,6 +61,10 @@ Sistem analize:
 - sistem vizualizare analize V
 - sistem incarcare analize v
 
+- sistem incarcare poza de profil V
+- sistem schimbare poza de profil V
+- sistem vizualizare alte poze de profil X
+
 
 
 

@@ -89,7 +89,8 @@ exports.getSchedulesForUsers = (req, res, next) => {
               indicatii: indicatiiDec,
               pdfPaths: schedule.pdfPaths,
               onlineSchedule: schedule.onlineSchedule,
-              medicName: medic.lastName + " " + medic.firstName,
+              medicLastName: medic.lastName,
+              medicFirstName: medic.firstName,
               phoneNumber: phoneNumberDec,
               email: medic.email,
               pdfPaths: finalPaths

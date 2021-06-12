@@ -1,9 +1,11 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
 import { FormBuilder, FormControl, FormGroup, FormGroupDirective, NgForm, Validators } from "@angular/forms";
 import { ErrorStateMatcher } from "@angular/material/core";
+import { MatDialog } from "@angular/material/dialog";
 import { Observable, Subscription } from "rxjs";
 import { ProgramareService } from "src/app/programare/programare.service";
 import { AuthService } from "../auth.service";
+import { SuccessCreateAccountDialog } from "./successSchedule/success-create.component";
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -31,7 +33,7 @@ export class SignupComponent implements OnInit, OnDestroy{
   medicOrNot = false;
 
 
-  constructor(private authService: AuthService, private fb: FormBuilder, public programareService: ProgramareService) {
+  constructor(private authService: AuthService, private fb: FormBuilder, public programareService: ProgramareService, public dialog: MatDialog) {
     this.form = this.fb.group({
       firstName: new FormControl(null, {validators: [Validators.required, Validators.pattern('^[A-Za-z -]+$')]}),
       lastName:  new FormControl(null, {validators: [Validators.required, Validators.pattern('^[A-Za-z -]+$')]}),
@@ -63,11 +65,18 @@ export class SignupComponent implements OnInit, OnDestroy{
       return;
     } else {
       this.isLoading = true;
+      const dialogRef = this.dialog.open(SuccessCreateAccountDialog, {
+        width:'325px',
+        data: {
+          email: form.value.email,
+          name: form.value.lastName + ' ' + form.value.firstName
+        }});
       this.authService.createUser(form.value.email, form.value.passwords.password,
                                   form.value.phoneNumber, form.value.lastName,
                                   form.value.firstName, form.value.cnp,
                                   form.value.county, form.value.address,
                                   form.value.specialization, form.value.isMedic);
+
     }
   }
 

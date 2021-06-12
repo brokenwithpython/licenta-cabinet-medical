@@ -142,7 +142,7 @@ export class AuthService {
     postProfileImage.append("image", file, file.name.split('.')[0] + '-' + this.getUserId());
     postProfileImage.append("id", this.getUserId());
     this.http.post(backendlink + 'uploadProfilePhoto', postProfileImage).subscribe((result) => {
-      console.log(result);
+      this.getPersonalData(this.getIsMedicAuth());
     })
 
   }

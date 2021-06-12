@@ -14,7 +14,7 @@ a{
 
 #brandUL {
   margin-left: 0px;
-  margin-top: 0px;
+  margin-top: 15px;
 }
 
 header{
@@ -198,6 +198,7 @@ nav ul li a:hover::after{
     display: inline-block;
     vertical-align: middle;
     cursor: pointer;
+    margin-top: 10px;
   }
 
 

@@ -36,6 +36,8 @@ import { ErrorComponent } from './error/error.component';
 import { ErrorInterceptor } from './error-interceptor';
 import { ConfirmDialogComponent } from './my-account/confirmDialog/confirm-dialog.component';
 import { SuccessScheduleDialog } from './select-medic-and-hour/successSchedule/success-schedule.component';
+import { ResetPasswordComponent } from './auth/resetPassword/reset-password.component';
+import { ChangeResetPasswordComponent } from './auth/changeResetPassword/change-reset-password.component';
 
 
 @NgModule({
@@ -60,7 +62,9 @@ import { SuccessScheduleDialog } from './select-medic-and-hour/successSchedule/s
     UploadImageDialog,
     ErrorComponent,
     ConfirmDialogComponent,
-    SuccessScheduleDialog
+    SuccessScheduleDialog,
+    ResetPasswordComponent,
+    ChangeResetPasswordComponent
 
   ],
   imports: [

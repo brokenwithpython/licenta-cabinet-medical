@@ -8,6 +8,7 @@ const bodyParser = require('body-parser');
 const userRoutes = require('./routes/user');
 const medicRoutes = require('./routes/medic');
 const scheduleRoutes = require('./routes/schedule');
+const sendEmailRouter = require('./routes/sendEmail');
 
 const scheduleUpDownRoutes = require('./routes/scheduleUpDown');
 const app = express();
@@ -50,6 +51,7 @@ app.use("/api/user", userRoutes);
 app.use("/api/medic", medicRoutes);
 app.use("/api/schedule", scheduleRoutes);
 app.use('/api/documents', scheduleUpDownRoutes);
+app.use('/api/sendEmail', sendEmailRouter);
 // app.use("/chat", chatRoutes)
 
 module.exports = app;

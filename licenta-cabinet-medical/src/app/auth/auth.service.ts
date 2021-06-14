@@ -217,6 +217,27 @@ export class AuthService {
     localStorage.removeItem('isMedic');
   }
 
+  resetPassword(email, isMedic) {
+    let user = {
+      email: email,
+      isMedic: isMedic
+    }
+    this.http.post(environment.apiUrl + 'sendEmail/resetPassword', user).subscribe(response => {
+      console.log(response);
+    })
+  }
+
+  resetChangePassword(password, token, isMedic) {
+    let user = {
+      password: password,
+      token: token,
+      isMedic: isMedic
+    }
+    this.http.post(environment.apiUrl + 'sendEmail/resetChangePassword', user).subscribe(response => {
+      console.log(response);
+    })
+  }
+
   getToken() {
     return this.token;
   }

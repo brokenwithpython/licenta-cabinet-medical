@@ -64,6 +64,8 @@ Sistem analize:
 - sistem incarcare poza de profil V
 - sistem schimbare poza de profil V
 - sistem vizualizare alte poze de profil X
+- dashboard profil medici X?
+
 
 
 

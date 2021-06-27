@@ -86,7 +86,7 @@ export class AuthService {
           const now = new Date();
           const expirationDate = new Date(now.getTime() + expiresInDuration * 1000);
           this.saveAuthData(token, expirationDate, this.userId, this.isMedic);
-          this.router.navigate(['/chat']);
+          this.router.navigate(['/home']);
         }
       }, error => {
         this.authStatusListner.next(false);
@@ -157,6 +157,7 @@ export class AuthService {
       return image;
     })
   }
+
   logout() {
     this.token = null;
     this.userId = null;
@@ -224,7 +225,18 @@ export class AuthService {
     }
     this.http.post(environment.apiUrl + 'sendEmail/resetPassword', user).subscribe(response => {
       console.log(response);
-    })
+    });
+  }
+
+  sendMessage (email,  message, isMedic) {
+    let userData = {
+      email: email,
+      message: message,
+      isMedic: isMedic
+    }
+    this.http.post(environment.apiUrl + 'sendEmail/sendMessage', userData).subscribe(response => {
+      console.log(response)
+    });
   }
 
   resetChangePassword(password, token, isMedic) {

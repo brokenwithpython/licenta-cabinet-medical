@@ -1,7 +1,5 @@
-import { AfterContentChecked, AfterContentInit, AfterViewChecked, AfterViewInit, Component, OnInit } from '@angular/core';
-import { MatDialog, MatDialogRef } from '@angular/material/dialog';
-import * as $ from 'jquery';
-import { ConfirmDialogComponent } from '../my-account/confirmDialog/confirm-dialog.component';
+import { AfterContentChecked, Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { ProgramareService } from '../programare/programare.service';
 import { SelectHourDialogComponent } from './select-hour-dialog/select-hour-dialog.component';
 import { SuccessScheduleDialog } from './successSchedule/success-schedule.component';

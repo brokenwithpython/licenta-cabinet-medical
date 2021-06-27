@@ -1,0 +1,19 @@
+.description {
+
+    text-align: center;
+    padding-top: 25px;
+}
+.images {
+    text-align: center;
+    padding-bottom: 50px;
+}
+ul {
+    display: table;
+    margin: 0 auto;
+  }
+
+
+  .responsive {
+    width: 100%;
+    height: auto;
+  }

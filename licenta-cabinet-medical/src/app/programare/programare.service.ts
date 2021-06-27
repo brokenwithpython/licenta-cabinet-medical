@@ -1,7 +1,6 @@
 import { HttpClient, HttpHeaders } from "@angular/common/http";
-import { stringify } from "@angular/compiler/src/util";
 import { Injectable } from "@angular/core";
-import { Data, Router } from "@angular/router";
+import { Router } from "@angular/router";
 import { Subject } from "rxjs";
 import { environment } from "src/environments/environment";
 import { AuthService } from "../auth/auth.service";

@@ -1,0 +1,14 @@
+
+.mat-button{
+  background-color: #0190B0;
+  color: #ffff;
+}
+
+
+
+.center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+

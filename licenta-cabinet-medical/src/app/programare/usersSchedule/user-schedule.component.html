@@ -47,10 +47,12 @@
       <button *ngIf="this.authService.getIsMedicAuth()" mat-stroked-button type="button" (click)="openDialogUpload(schedule)" >Incarca fisiere</button>
     </div>
     <mat-action-row *ngIf="!this.authService.getIsMedicAuth()">
+      <button mat-button (click)="sendMessage(schedule)">Trimite mesaj</button>
       <button mat-raised-button color="warn" (click)="deleteSchedule(schedule)">Sterge</button>
       <button mat-button (click)="editSchedule(schedule)">Editeaza</button>
     </mat-action-row>
     <mat-action-row *ngIf="this.authService.getIsMedicAuth()">
+      <button mat-button (click)="sendMessage(schedule)">Trimite mesaj</button>
       <button mat-raised-button color="warn" (click)="deleteSchedule(schedule)">Anuleaza</button>
       <button mat-button (click)="editScheduleInfo(schedule)">Editeaza</button>
     </mat-action-row>
@@ -58,7 +60,7 @@
 </mat-accordion>
 
 <h2 *ngIf="this.pastSchedules[0]">Istoric programari:</h2>
-<mat-spinner *ngIf="isLoading"></mat-spinner>
+<!-- <mat-spinner *ngIf="isLoading"></mat-spinner> -->
 <mat-accordion class="example-headers-align" multi *ngIf="!isLoading">
   <mat-expansion-panel
   (opened)="panelOpenState = true"
@@ -105,10 +107,12 @@
       <button *ngIf="this.authService.getIsMedicAuth()" mat-stroked-button type="button" (click)="openDialogUpload(schedule)" >Incarca fisiere</button>
     </div>
     <mat-action-row *ngIf="!this.authService.getIsMedicAuth()">
+      <button mat-button (click)="sendMessage(schedule)">Trimite mesaj</button>
       <button mat-raised-button color="warn" (click)="deleteSchedule(schedule)">Sterge</button>
       <!-- <button mat-button (click)="editSchedule(schedule)">Editeaza</button> -->
     </mat-action-row>
     <mat-action-row *ngIf="this.authService.getIsMedicAuth()">
+      <button mat-button (click)="sendMessage(schedule)">Trimite mesaj</button>
       <button mat-raised-button color="warn" (click)="deleteSchedule(schedule)">Anuleaza</button>
       <button mat-button (click)="editScheduleInfo(schedule)">Editeaza</button>
     </mat-action-row>
@@ -116,7 +120,7 @@
 </mat-accordion>
 
 <h2 *ngIf="this.nextSchedules[0]">Programari viitoare:</h2>
-<mat-spinner *ngIf="isLoading"></mat-spinner>
+<!-- <mat-spinner *ngIf="isLoading"></mat-spinner> -->
 <mat-accordion class="example-headers-align" multi *ngIf="!isLoading">
   <mat-expansion-panel
   (opened)="panelOpenState = true"
@@ -163,10 +167,12 @@
       <button *ngIf="this.authService.getIsMedicAuth()" mat-stroked-button type="button" (click)="openDialogUpload(schedule)" >Incarca fisiere</button>
     </div>
     <mat-action-row *ngIf="!this.authService.getIsMedicAuth()">
+      <button mat-button (click)="sendMessage(schedule)">Trimite mesaj</button>
       <button mat-raised-button color="warn" (click)="deleteSchedule(schedule)">Sterge</button>
       <button mat-button (click)="editSchedule(schedule)">Editeaza</button>
     </mat-action-row>
     <mat-action-row *ngIf="this.authService.getIsMedicAuth()">
+      <button mat-button (click)="sendMessage(schedule)">Trimite mesaj</button>
       <button mat-raised-button color="warn" (click)="deleteSchedule(schedule)">Anuleaza</button>
       <button mat-button (click)="editScheduleInfo(schedule)">Editeaza</button>
     </mat-action-row>

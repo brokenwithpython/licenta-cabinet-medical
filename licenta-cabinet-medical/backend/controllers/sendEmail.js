@@ -5,6 +5,31 @@ const Medics = require('../models/medic');
 const MedicsInfo = require('../models/medicInfo');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
+const user = require('../models/user');
+
+
+
+exports.sendMessage = (req, res, next) => {
+
+  let user = req.body;
+  let email;
+  let userId;
+  const token = req.headers.authorization.split(" ")[1];
+  const decodedToken = jwt.verify(token, process.env.JWT_KEY);
+
+  if(decodedToken) {
+    email = decodedToken.email;
+    userId = decodedToken.userId;
+
+    sendEmail({email: user.email, message: user.message, type: 'sendMessage', recipientEmail: email}, info => {
+      console.log(info);
+      res.status(200).json({
+        message: 'Mesajul a fost trimis cu succes!',
+        info: info
+      });
+    })
+  }
+}
 
 
 
@@ -142,6 +167,10 @@ async function sendEmail(user, callback) {
             <h3>Ati primit acest mail deoarece ati solicitat resetarea parolei!</h3><br>
             <h3>Pentru a putea schimba parola veche, faceti click pe link-ul urmator: <a href="${user.link}"> LINK Schimbare parola</a></h3><br>
             <h4>Daca nu ati solicitat resetarea parolei, ignorati pur si simplu acest mesaj.</h4>`
+  } else if (user.type === "sendMessage") {
+    subject = "Mesaj nou primit!";
+    html = `<h2>Ati primit un mesaj nou de la ${user.recipientEmail}</h2><br>
+            <h3>Mesaj: ${user.message}</h3>`;
   }
 
   let mailOptions = {

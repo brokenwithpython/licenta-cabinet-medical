@@ -1,8 +1,6 @@
 import { Component, Inject } from "@angular/core";
 import { FormControl, FormGroup } from "@angular/forms";
 import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material/dialog";
-import { FileUploader } from "ng2-file-upload";
-import { environment } from "src/environments/environment";
 import { ProgramareService } from "../programare.service";
 
 @Component({

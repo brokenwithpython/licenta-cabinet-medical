@@ -35,7 +35,7 @@ Task-uri:
   - backend stergere programare V
   - sistem vizualizare programari V
   - sistem gestiune programari V
-  - Sistem vizualizare informatii scrise de medic VX
+  - Sistem vizualizare informatii scrise de medic V
 - Sistem contul meu:
   - sistem informatii despre mine V
   - sistem modificare informatii V
@@ -44,9 +44,9 @@ Task-uri:
 - Autentificare:
   - autentificare ca medic v
   - autentificare ca pacient V
-  - ai uitat parola X
+  - ai uitat parola V
   - mail confirmare cont X
-  - schimba parola X
+  - schimba parola V
 
 
 - Main screen:
@@ -65,6 +65,8 @@ Sistem analize:
 - sistem schimbare poza de profil V
 - sistem vizualizare alte poze de profil X
 - dashboard profil medici X?
+- mail cont nou
+
 
 
 

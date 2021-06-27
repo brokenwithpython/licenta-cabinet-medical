@@ -1,19 +1,15 @@
 import { Component, OnDestroy, OnInit, ViewChild } from "@angular/core";
-import { MatAccordion, MatExpansionPanel } from "@angular/material/expansion";
+import { MatExpansionPanel } from "@angular/material/expansion";
 import { Subscription } from "rxjs";
 import { AuthService } from "src/app/auth/auth.service";
 import { ProgramareService } from "../programare.service";
-import * as $ from 'jquery';
-import { formatWithOptions } from "node:util";
 import { MatDialog } from "@angular/material/dialog";
 import { ProgramareDialogComponent } from "../programareDialog/programare-dialog.component";
 import { Router } from "@angular/router";
 import { EditProgDialogComponent } from "../programareEditareMedicDialog/editProgMedic.component";
 import { EditAddInfoScheduleComponent } from "../editare-adaugare-info-programare/edit-add-info-schedule.component";
-import { FormControl, FormGroup } from "@angular/forms";
-import { FileSelectDirective , FileUploader } from "ng2-file-upload";
-import { environment } from "src/environments/environment";
 import { UploadPdfDialog } from "../uploadPdfDialog/uploadPdf-dialog.component";
+import { NewMessageDialogComponent } from "../newMessageDialog/newMessageDialog.component";
 
 export interface IsPanelOpen {
   id: string;
@@ -164,6 +160,24 @@ export class UserScheduleComponent implements OnInit, OnDestroy{
 
         }
       }
+    });
+  }
+
+  sendMessage(schedule) {
+    console.log(schedule);
+    let isMedic = false;
+    let email = schedule.email;
+    if(this.authService.getIsMedicAuth()) {
+      isMedic = true;
+    }
+    const dialogRef = this.dialog.open(NewMessageDialogComponent, {
+      width: '325px',
+      data: {email: email,
+              isMedic: isMedic}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(result)
     });
   }
 

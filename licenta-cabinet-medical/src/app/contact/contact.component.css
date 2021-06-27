@@ -1,0 +1,42 @@
+/* .iconImage
+{   text-align: center;
+    padding-inline-start: 20px;
+}
+
+.map-container{
+  overflow:hidden;
+  padding-bottom:56.25%;
+  position:relative;
+  height:0;
+}
+.map-container iframe{
+  left:0;
+  top:0;
+  height:400px;
+  width:400px;
+  position:absolute;
+} */
+
+.center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* .titlu-locatii {
+  margin-right: 20px;
+} */
+
+div {
+  display: inline-block;
+  vertical-align: top;
+  line-height: 1;
+}
+
+div:first-child {
+  width: auto;
+}
+
+/* .zone {
+  display: ;
+} */

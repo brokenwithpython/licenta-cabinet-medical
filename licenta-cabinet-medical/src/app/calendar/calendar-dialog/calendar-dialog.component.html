@@ -24,12 +24,12 @@
 </div>
 
 <div *ngIf="this.authService.getIsAuth()">
-  <mat-dialog-content>
+  <mat-dialog-content class="center">
     Data: {{ data.date }}
   </mat-dialog-content>
   <form  [formGroup]="form" (ngSubmit)="onSavePost()">
     <div class="form">
-      <mat-form-field>
+      <mat-form-field class="center">
         <mat-label>Selectati problema</mat-label>
         <mat-select
         formControlName="problema"
@@ -42,7 +42,7 @@
         You must make a selection
       </mat-error>
     </mat-form-field>
-    <mat-form-field>
+    <mat-form-field class="center">
       <mat-label>Alegeti judetul</mat-label>
       <mat-select
       formControlName="localitate">
@@ -53,13 +53,13 @@
     </mat-error>
   </mat-form-field>
   <mat-checkbox
-  class="example-margin"
+  class="example-margin center"
   [formControlName]="'consultatieOnline'">
   Doriti o consultatie online?
 </mat-checkbox>
 </div>
 </form>
-<mat-dialog-actions>
+<mat-dialog-actions class="center">
   <button mat-button [mat-dialog-close]="[false]">No Thanks</button>
   <button
     [disabled]="this.form.get('localitate').invalid || this.form.get('problema').invalid"

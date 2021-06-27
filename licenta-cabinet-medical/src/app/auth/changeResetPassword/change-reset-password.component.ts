@@ -1,8 +1,11 @@
 import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormControl, FormGroup, FormGroupDirective, NgForm, Validators } from "@angular/forms";
 import { ErrorStateMatcher } from "@angular/material/core";
-import { ActivatedRoute } from "@angular/router";
+import { MatDialog } from "@angular/material/dialog";
+import { ActivatedRoute, Router } from "@angular/router";
 import { AuthService } from "../auth.service";
+import { AvertizareSchimbareParola } from "../avertizare-schimbare-parola/avertizareSchimabreParola.component";
+import { FinalizareSchimbareParola } from "../finalizare-schimbare-parola/finalizare-schimbare-parola.component";
 
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
@@ -24,7 +27,7 @@ export class ChangeResetPasswordComponent implements OnInit{
 
   form: FormGroup;
   matcher = new MyErrorStateMatcher();
-  constructor (private fb: FormBuilder, private authService: AuthService, private route: ActivatedRoute) {
+  constructor (private fb: FormBuilder, private authService: AuthService, private route: ActivatedRoute, private dialog: MatDialog, private router: Router) {
 
     this.form = this.fb.group({
       passwords: new FormGroup({
@@ -49,9 +52,15 @@ export class ChangeResetPasswordComponent implements OnInit{
   onChange() {
     if (!this.form.invalid)
     {
-      this.authService.resetChangePassword(this.form.get("passwords.password").value,
-      this.route.snapshot.params['token'],
-      this.route.snapshot.params['isMedic']);
+      const dialogRef = this.dialog.open(FinalizareSchimbareParola, {
+        width:'325px'});
+      dialogRef.afterClosed().subscribe(result =>{
+        this.authService.resetChangePassword(this.form.get("passwords.password").value,
+        this.route.snapshot.params['token'],
+        this.route.snapshot.params['isMedic']);
+        this.router.navigate(['./home']);
+      });
+
     }
   }
 

@@ -1,7 +1,6 @@
 import { Component, Inject } from "@angular/core";
 import { FormControl, FormGroup } from "@angular/forms";
 import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material/dialog";
-import { EditProgDialogComponent } from "../programareEditareMedicDialog/editProgMedic.component";
 
 @Component({
   selector: 'edit-add-info-schedule-component',

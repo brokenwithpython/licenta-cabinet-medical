@@ -27,8 +27,8 @@
             </a>
           </div>
           <ul id="ulID">
-            <li routerLinkActive="active" *ngIf="!userIsAuthenticated"><a routerLink="/selectare">Contact</a></li>
-            <li routerLinkActive="active" *ngIf="!userIsAuthenticated"><a routerLink="/selectare">Despre Noi</a></li>
+            <li routerLinkActive="active" *ngIf="!userIsAuthenticated"><a routerLink="/contact">Contact</a></li>
+            <li routerLinkActive="active" *ngIf="!userIsAuthenticated"><a routerLink="/about">Despre Noi</a></li>
 
 
             <li routerLinkActive="active" *ngIf="userIsAuthenticated && !this.authService.getIsMedicAuth()"><a routerLink="/my-account">Contul Meu</a></li>

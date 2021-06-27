@@ -38,6 +38,13 @@ import { ConfirmDialogComponent } from './my-account/confirmDialog/confirm-dialo
 import { SuccessScheduleDialog } from './select-medic-and-hour/successSchedule/success-schedule.component';
 import { ResetPasswordComponent } from './auth/resetPassword/reset-password.component';
 import { ChangeResetPasswordComponent } from './auth/changeResetPassword/change-reset-password.component';
+import { MainScreenNoAuthComponent } from './main-screen-no-auth/main-screen-no-auth.component';
+import { ContactComponent } from './contact/contact.component';
+import { AboutComponent } from './about/about.component';
+import { AvertizareSchimbareParola } from './auth/avertizare-schimbare-parola/avertizareSchimabreParola.component';
+import { FinalizareSchimbareParola } from './auth/finalizare-schimbare-parola/finalizare-schimbare-parola.component';
+import { NewMessageDialogComponent } from './programare/newMessageDialog/newMessageDialog.component';
+import { FinalizareTrimitereMesajDialogComponent } from './programare/finalizareTrimitereMesaj/finalizareTrimitereMesajDialog.component';
 
 
 @NgModule({
@@ -64,7 +71,14 @@ import { ChangeResetPasswordComponent } from './auth/changeResetPassword/change-
     ConfirmDialogComponent,
     SuccessScheduleDialog,
     ResetPasswordComponent,
-    ChangeResetPasswordComponent
+    ChangeResetPasswordComponent,
+    MainScreenNoAuthComponent,
+    ContactComponent,
+    AboutComponent,
+    AvertizareSchimbareParola,
+    FinalizareSchimbareParola,
+    NewMessageDialogComponent,
+    FinalizareTrimitereMesajDialogComponent
 
   ],
   imports: [
@@ -85,7 +99,8 @@ import { ChangeResetPasswordComponent } from './auth/changeResetPassword/change-
   bootstrap: [AppComponent],
   entryComponents: [CalendarDialogComponent, SelectHourDialogComponent,
      ProgramareDialogComponent, EditProgDialogComponent, EditAddInfoScheduleComponent, UploadPdfDialog, UploadImageDialog,
-    ErrorComponent, ConfirmDialogComponent, SuccessScheduleDialog]
+    ErrorComponent, ConfirmDialogComponent, SuccessScheduleDialog, AvertizareSchimbareParola, FinalizareSchimbareParola,
+    NewMessageDialogComponent, FinalizareTrimitereMesajDialogComponent]
 })
 export class AppModule { }
 

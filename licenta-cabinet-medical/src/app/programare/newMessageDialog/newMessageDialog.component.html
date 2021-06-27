@@ -1,0 +1,21 @@
+<form [formGroup]="form" (submit)="onSendMessage()" #messageForm="ngForm">
+  <div class="note">
+    <p>Mesajul pe care doriti sa il trimiteti:</p>
+  </div>
+  <mat-form-field appearance="outline">
+    <mat-label>Note consultatie</mat-label>
+    <textarea
+      matInput
+      placeholder="Mesaj ..."
+      type="text"
+      name="message"
+      [formControlName] = "'message'"
+    ></textarea>
+  </mat-form-field>
+
+  <mat-dialog-actions>
+    <button mat-raised-button color="warn" [mat-dialog-close]="[false]">Inchide</button>
+    <button mat-button submit>Trimite</button>
+  </mat-dialog-actions>
+</form>
+

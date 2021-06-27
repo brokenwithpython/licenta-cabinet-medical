@@ -66,7 +66,7 @@ export class CalendarComponent implements OnInit, AfterViewInit {
     let dTemp = date.split(" ");
     let dFinal = new Date(parseInt(dTemp[2]), parseInt(dTemp[1]), parseInt(dTemp[0]));
     const dialogRef = this.dialog.open(CalendarDialogComponent, {
-      width:'400px',
+      width:'325px',
       data: {date: date,
               localitate: this.programareService.judete}});
     dialogRef.afterClosed().subscribe(result =>{
